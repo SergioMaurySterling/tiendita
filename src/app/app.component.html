@@ -1,3 +1,146 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-split-pane when="md" contentId="main">
+
+    <ion-menu side="start" menuId="primerMenu" contentId="main" contentId="main">
+      <ion-header mode="md">
+        <ion-toolbar mode="md" color="primary" class="ion-text-center">
+          <ion-title><h2>Menú</h2></ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+
+          <ion-img *ngIf="imageUrl && user$ | async as user"  src="{{imageUrl}}" class="img"></ion-img>
+          <ion-img *ngIf="!imageUrl"  src="assets/logo-amarillo.svg" class="img"></ion-img>
+
+          <ion-menu-toggle autoHide="false" *ngIf="user$ | async as user; else login">
+            <ion-item [routerLink]="['/edituser', uid]">
+              <ion-icon slot="start" name="person-outline"></ion-icon>
+              <ion-label>{{ user?.email }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ng-template #login>
+            <ion-menu-toggle autoHide="false">
+              <ion-item routerLink="/login">
+                <ion-icon slot="start" name="person-outline"></ion-icon>
+                <ion-label>Iniciar sesión</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ng-template>
+          
+          <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">
+            <ion-item [routerLink]="c.redirectTo">
+              <ion-icon slot="start" [name]="c.icon"></ion-icon>
+              <ion-label>{{c.name}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-item-divider mode=ios color="primary" *ngIf="user$ | async as user;"></ion-item-divider>
+          
+          <ion-menu-toggle autoHide="false" *ngIf="user$ | async as user;">
+            <ion-item routerLink="/mymodals">
+              <ion-icon slot="start" name="create-outline"></ion-icon>
+              <ion-label>Mis publicaciones</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" *ngIf="rol ==='emp' && user$ | async as user">
+            <ion-item routerLink="/mypublications">
+              <ion-icon slot="start" name="images-outline"></ion-icon>
+              <ion-label>Mis anuncios</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" *ngIf="user$ | async as user;">
+            <ion-item routerLink="/historial">
+              <ion-icon slot="start" name="cart-outline"></ion-icon>
+              <ion-label *ngIf="rol === 'user'" >Mis compras</ion-label>
+              <ion-label *ngIf="rol === 'emp'" >Mis ventas</ion-label>
+              <ion-label *ngIf="rol === 'admin'" >Compras/Ventas</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" *ngIf="rol ==='emp' && user$ | async as user">
+            <ion-item routerLink="/analytics">
+              <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
+              <ion-label>Mis analíticas</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" *ngIf="rol ==='admin' && user$ | async as user">
+            <ion-item routerLink="/users">
+              <ion-icon slot="start" name="people-circle-outline"></ion-icon>
+              <ion-label>Usuarios</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false" *ngIf="rol ==='admin' && user$ | async as user">
+            <ion-item routerLink="/usersAliad">
+              <ion-icon slot="start" name="people-circle"></ion-icon>
+              <ion-label>Aliados</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-button *ngIf="user$ | async as user;" class="mt-4 px-3" mode="ios" expand="block" shape="round" (click)="OnLogout()">
+            <b>Cerrar sesión</b>
+          </ion-button>
+          
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isActive === true && hasVerifiedEmail && user$ | async as user;">
+    <ion-fab-button (click)="chatRooms()" color="primary" routerDirection="forward">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Verificacion de Activacion -->
+  <ion-content class="ion-padding" *ngIf="isActive === false && hasVerifiedEmail">
+    <ion-card class="card" mode="ios">
+      <ion-card-header color="primary">
+        <ion-card-title class="ion-text-center"><img src="assets/logo.svg" width="40px"> Su usuario no se encuentra activo</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content class="pt-3">
+        <div>
+          Por favor contactar con soporte de Petti: <br>
+          <b>petti.soporte@gmail.com</b>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+  <!-- Verificacion de Email -->
+  <ion-content class="ion-padding" *ngIf="!hasVerifiedEmail" >
+    <ion-card class="card" mode="ios">
+      <ion-card-header color="primary">
+        <ion-card-title class="ion-text-center"><img src="assets/logo.svg" width="40px"> Verificacion por email</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content class="pt-3">
+        <div>
+          Por favor presione en el boton de <b>enviar email de verificacion</b> y luego verifica en tu correo electronico que llegue el email de activacion de tu cuenta (es posible que el correo llegue a la carpeta de spam), luego de confirmar el correo presione clic en el boton <b>recargar pagina</b>.
+          
+          <div class="ion-text-center">
+            <ion-button mode="ios" class="pt-2" (click)="sendVerificationEmail()" color="secondary" shape="round">
+              Enviar Email de Verificacion
+            </ion-button>
+            <ion-button mode="ios" class="pt-2" (click)="reload()" color="secondary" shape="round">
+              Recargar Pagina
+            </ion-button>
+          </div>
+        </div>
+
+        <div class="pt-2" *ngIf="sentTimeStamp" >
+          <ion-label><i>Email de verificacion enviado el {{ sentTimeStamp | date:'medium' }}</i></ion-label>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  
 </ion-app>

@@ -1,0 +1,76 @@
+<app-header titulo="Publicaciones" color="primary"></app-header>
+
+<ion-content class="ion-padding">
+  <p class="ion-text-center">
+    <i>En esta página encontrarás tus propuestras creadas en coupet, adopción y mascotas perdidas.</i><br>
+    <i>Deslice cada item en el listado a la derecha o a la izquierda para desplegar las opciones.</i>
+  </p>
+
+  <ion-searchbar placeholder="Buscar por nombre" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+
+  <div *ngIf="rol === 'admin'">
+    <ion-item-sliding *ngFor="let todo of todos | filtro: textoBuscar: 'petName'">
+
+      <ion-item>
+
+        <ion-card>
+          <ion-card-header color="{{ todo.color }}">
+            <ion-row>
+              <ion-col size-md="6"><ion-card-title>Mascota: {{ todo.petName }}</ion-card-title></ion-col>
+              <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo.isActive" (ionChange)="change(todo.isActive, todo.id)"></ion-toggle> </ion-col>
+            </ion-row>
+            
+          </ion-card-header>
+        
+          <ion-card-content class="pt-2">
+            <ion-label>Creado por: {{ todo.userName }}</ion-label>
+            <ion-label><i>Creado el: {{ todo.date | date:'dd/MMM/yyyy h:mm:ss a' }}</i></ion-label>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option [routerLink]="['/editmodal', todo.id]">Editar</ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="onRemove(todo)">Eliminar</ion-item-option>
+      </ion-item-options>
+        
+    </ion-item-sliding>
+  </div>
+
+  <div *ngIf="rol !== 'admin'">
+    <ion-item-sliding *ngFor="let todo2 of todos2 | filtro: textoBuscar: 'petName'">
+
+      <ion-item>
+          
+        <ion-card>
+          <ion-card-header color="{{ todo2.color }}">
+            <ion-row>
+              <ion-col size-md="6"><ion-card-title>Mascota: {{ todo2.petName }}</ion-card-title></ion-col>
+              <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo2.isActive" (ionChange)="change(todo2.isActive, todo2.id)"></ion-toggle> </ion-col>
+            </ion-row>
+          </ion-card-header>
+        
+          <ion-card-content class="pt-2">
+            <ion-label>Creado por: {{ todo2.userName }}</ion-label>
+            <ion-label><i>Creado el: {{ todo2.date | date:'dd/MMM/yyyy h:mm:ss a' }}</i></ion-label>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option [routerLink]="['/editmodal', todo2.id]">Editar</ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="onRemove(todo2)">Eliminar</ion-item-option>
+      </ion-item-options>
+        
+    </ion-item-sliding>
+  </div>
+
+</ion-content>

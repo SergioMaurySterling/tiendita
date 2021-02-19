@@ -1,0 +1,100 @@
+<app-header titulo="Mis anuncios" color="primary"></app-header>
+
+<ion-toolbar color="warning" *ngIf="rol === 'emp'">
+  <ion-segment [(ngModel)]="selectTabs" mode="md">
+    <ion-segment-button value="vetCare">
+      <ion-label><b>Vet & Care</b></ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="petShop">
+      <ion-label><b>Tienda</b></ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content class="ion-padding">
+  <p class="ion-text-center">
+    <i>En esta página encontrarás tus propuestras creadas en la Tienda y Vet & Care.</i><br>
+    <i>Deslice cada item en el listado a la derecha o a la izquierda para desplegar las opciones.</i>
+  </p>
+
+  <ion-searchbar placeholder="Buscar por nombre" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+
+  <div *ngIf="rol === 'emp' && selectTabs == 'vetCare'">
+    <ion-item-sliding *ngFor="let todo2 of todos2 | filtro: textoBuscar: 'catName'">
+
+      <ion-item>
+          
+        <ion-card>
+          <ion-card-header color="{{ todo2.color }}">
+            <ion-row>
+              <ion-col size-md="6"><ion-card-title>Nombre: {{ todo2.name }}</ion-card-title></ion-col>
+              <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo2.isActive" (ionChange)="change(todo2.isActive, todo2.id)"></ion-toggle> </ion-col>
+            </ion-row>
+          </ion-card-header>
+        
+          <ion-card-content class="pt-2">
+            <ion-row>
+              <ion-col size-md="6">
+                <ion-label>Servicio: {{ todo2.catName }}</ion-label>
+                <ion-label>Creado por: {{ todo2.asociadoName }}</ion-label>
+                <ion-label><i>Creado el: {{ todo2.date | date:'dd/MMM/yyyy h:mm:ss a' }}</i></ion-label>
+              </ion-col>
+              <ion-col size-md="6" *ngIf="todo2.typeservice === 'Servicio de agendamiento'">
+                <ion-button [routerLink]="['/calendar', todo2.id]" expand="block" color="secondary" shape="round">
+                  Crear Agenda
+                </ion-button>
+                <ion-button [routerLink]="['/editCupos', todo2.uid]" expand="block" color="secondary" shape="round">
+                  Modificar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option [routerLink]="['/editpublication', todo2.id]">Editar</ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="onRemove(todo2)">Eliminar</ion-item-option>
+      </ion-item-options>
+        
+    </ion-item-sliding>
+  </div>
+
+  <div *ngIf="rol === 'emp' && selectTabs == 'petShop'">
+    <ion-item-sliding *ngFor="let todo of todos | filtro: textoBuscar: 'name'">
+
+      <ion-item>
+          
+        <ion-card>
+          <ion-card-header color="dark">
+            <ion-row>
+              <ion-col size-md="6"><ion-card-title>Producto: {{ todo.name }}</ion-card-title></ion-col>
+              <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo.isActive" (ionChange)="change2(todo.isActive, todo.uid)"></ion-toggle> </ion-col>
+            </ion-row>
+          </ion-card-header>
+        
+          <ion-card-content class="pt-2">
+            <ion-label>Creado por: {{ todo.userName }}</ion-label>
+            <ion-label><i>Creado el: {{ todo.date | date:'dd/MMM/yyyy h:mm:ss a' }}</i></ion-label>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option [routerLink]="['/editproducts', todo.uid]">Editar</ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="onRemovePetshop(todo)">Eliminar</ion-item-option>
+      </ion-item-options>
+        
+    </ion-item-sliding>
+  </div>
+
+</ion-content>

@@ -1,0 +1,57 @@
+<app-header titulo="chats" color="primary"></app-header>
+
+<ion-toolbar color="primary" *ngIf="rol !== 'admin'">
+  <ion-segment [(ngModel)]="selectTabs" mode="md">
+    <ion-segment-button value="creadas">
+      <ion-label><b>Creadas por mi</b></ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="agregaron">
+      <ion-label><b>Me agregaron</b></ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content>
+  
+  <ion-searchbar placeholder="Ingrese la busqueda" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+
+  <ion-list *ngIf="rol === 'admin'">
+    <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
+      <ion-avatar slot="start">
+        <img src="assets/logo.svg" alt="">
+      </ion-avatar>
+      <ion-label>
+        <b>Emisor:</b> {{ chat.emisorName }} <br> <b>Receptor: </b>{{ chat.receptorName }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="rol !== 'admin' && selectTabs == 'creadas'">
+    <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms2 | filtro: textoBuscar: 'receptorName'" (click)="openChat(chat)" button>
+      <ion-avatar slot="start">
+        <img src="assets/logo.svg" alt="">
+      </ion-avatar>
+      <ion-label *ngIf="thisUid === chat.emisorUid" >
+        <b>{{ chat.receptorName }}</b>
+      </ion-label>
+      <ion-label *ngIf="thisUid === chat.receptorUid" >
+        <b>{{ chat.emisorName }}</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="rol !== 'admin' && selectTabs == 'agregaron'">
+    <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms3 | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
+      <ion-avatar slot="start">
+        <img src="assets/logo.svg" alt="">
+      </ion-avatar>
+      <ion-label *ngIf="thisUid === chat.emisorUid" >
+        <b>{{ chat.receptorName }}</b>
+      </ion-label>
+      <ion-label *ngIf="thisUid === chat.receptorUid" >
+        <b>{{ chat.emisorName }}</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,182 @@
+<app-header titulo="Editar perfil" color="primary"></app-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="directionForm">
+    <div class="auto">
+
+        <ion-item>
+          <ion-label mode="md">Seleccione una imagen</ion-label>
+          <input type="file" [(ngModel)]="imageUrl" formControlName="imageUrl" name="imageUrl" (change)="chooseFile($event)">
+        </ion-item>
+
+        <ion-item class="ion-text-center">
+            <img src="{{todo.imageUrl}}" width="250px">
+        </ion-item>
+
+        <ion-item>
+          <ion-label *ngIf="rol === 'emp'"  mode="md" position="floating">Nombre del aliado</ion-label>
+          <ion-label *ngIf="rol === 'admin' || rol === 'user'"  mode="md" position="floating">Nombre</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.name" formControlName="name" name="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label *ngIf="rol === 'emp'"  mode="md" position="floating">Nombre del representante legal</ion-label>
+          <ion-label *ngIf="rol === 'admin' || rol === 'user'"  mode="md" position="floating">Apellido</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.lastname" formControlName="lastname" name="lastname"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label mode="md" position="floating">Teléfono</ion-label>
+          <ion-input type="number" [(ngModel)]="todo.phone" formControlName="phone" name="phone"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-searchbar mode="ios" [(ngModel)]="autocomplete.query" formControlName="autocomplete"
+          (ionInput)="updateSearch()" (ionClear)="ClearAutocomplete()" placeholder="Buscar dirección"></ion-searchbar>
+        </ion-item>
+        <ion-item [hidden]="autocompleteItems.length == 0" class="list">
+            <ion-list mode="ios" class="list" [hidden]="autocompleteItems.length == 0">
+                <ion-item class="list" *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+                {{ item }}
+                </ion-item>
+            </ion-list>
+        </ion-item>
+
+        <ion-item>
+          <ion-label mode="md" position="floating">Tu dirección como la conoces</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.direction" formControlName="direction" name="direction"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'emp'">
+          <ion-label mode="md" position="floating">Costo de domicilio por kilometro</ion-label>
+          <ion-input type="number" [(ngModel)]="todo.delivery" formControlName="delivery" name="delivery"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'emp'">
+          <ion-label mode="md" position="floating">Descripción</ion-label>
+          <ion-textarea type="text" [(ngModel)]="todo.description" formControlName="description" name="description"></ion-textarea>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'emp'">
+          <ion-label mode="md" position="floating">Horario</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.horario" formControlName="horario" name="horario"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'emp'">
+          <ion-label mode="md" position="floating">Página web</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.website" formControlName="website" name="website"></ion-input>
+        </ion-item>
+
+        <ion-item-divider *ngIf="rol === 'user' && isPetData === true" color="primary">
+          <ion-label><h1>Datos de Mascota</h1></ion-label>
+        </ion-item-divider>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-label mode="md">Seleccione imagen de mascota</ion-label>
+          <input type="file" [(ngModel)]="petImage" formControlName="petImage" name="petImage" (change)="chooseFile2($event)">
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true" class="ion-text-center">
+          <img src="{{todo.petImage}}" width="250px">
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-label mode="md" position="floating">Nombre de la mascota</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.petName" formControlName="petName" name="petName"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-radio-group [(ngModel)]="todo.petSize" value="todo.petSize" formControlName="petSize" name="petSize">
+            <ion-list-header>
+              <ion-label>Elige un tamaño</ion-label>
+            </ion-list-header>
+  
+            <ion-item>
+              <ion-label>Pequeño</ion-label>
+              <ion-radio slot="start" value="Pequeño"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Mediano</ion-label>
+              <ion-radio slot="start" value="Mediano"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Grande</ion-label>
+              <ion-radio slot="start" value="Grande"></ion-radio>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label>Extra-Grande</ion-label>
+              <ion-radio slot="start" value="Extra-Grande"></ion-radio>
+            </ion-item>
+  
+          </ion-radio-group>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-label mode="md" position="floating">Selecciona la raza de tu mascota</ion-label>
+          <ion-input type="text" [(ngModel)]="todo.petRace" formControlName="petRace" name="petRace"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-radio-group [(ngModel)]="todo.petAge" value="todo.paetAge" formControlName="petAge" name="petAge">
+            <ion-list-header>
+              <ion-label>Rango de edad</ion-label>
+            </ion-list-header>
+  
+            <ion-item>
+              <ion-label>Cachorro</ion-label>
+              <ion-radio slot="start" value="Cachorro"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Adulto</ion-label>
+              <ion-radio slot="start" value="Adulto"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Mayor +7 años</ion-label>
+              <ion-radio slot="start" value="Mayor +7 años"></ion-radio>
+            </ion-item>
+  
+          </ion-radio-group>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-radio-group [(ngModel)]="todo.petFur" value="todo.petFur" formControlName="petFur" name="petFur">
+            <ion-list-header>
+              <ion-label>Pelaje</ion-label>
+            </ion-list-header>
+  
+            <ion-item>
+              <ion-label>Corto</ion-label>
+              <ion-radio slot="start" value="Corto"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Mediano</ion-label>
+              <ion-radio slot="start" value="Mediano"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Largo</ion-label>
+              <ion-radio slot="start" value="Largo"></ion-radio>
+            </ion-item>
+  
+          </ion-radio-group>
+        </ion-item>
+        
+        <ion-item *ngIf="rol === 'user' && isPetData === true">
+          <ion-label mode="md" position="floating">Observaciones sobre tu mascota</ion-label>
+          <ion-textarea type="text" [(ngModel)]="todo.petObservations" formControlName="petObservations" name="petObservations"></ion-textarea>
+        </ion-item>
+
+        <br>
+        <ion-button mode="ios" expand="block" [disabled]="!directionForm.valid" (click)="saveTodo()">
+            <b>Actualizar</b>
+        </ion-button>
+
+    </div>
+  </form>
+</ion-content>

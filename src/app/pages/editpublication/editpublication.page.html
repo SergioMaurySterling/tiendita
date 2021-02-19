@@ -1,0 +1,54 @@
+<app-header titulo="Editar" color="secondary"></app-header>
+
+<ion-content>
+    <form [formGroup]="directionForm">
+        <div class="auto">
+    
+            <ion-item>
+              <ion-label mode="md">Seleccione una imagen</ion-label>
+              <input type="file" [(ngModel)]="imageUrl" formControlName="imageUrl" name="imageUrl" (change)="chooseFile($event)">
+            </ion-item>
+    
+            <ion-item class="ion-text-center">
+                <img src="{{todo.imageUrl}}" width="250px">
+            </ion-item>
+
+            <ion-item>
+                <ion-label mode="md" position="floating">Nombre del servicio</ion-label>
+                <ion-input type="text" [(ngModel)]="todo.name" formControlName="name" name="name"></ion-input>
+              </ion-item>
+      
+              <ion-item>
+                <ion-label mode="md" position="floating">precio del servicio</ion-label>
+                <ion-input type="number" [(ngModel)]="todo.price" formControlName="price" name="price"></ion-input>
+              </ion-item>
+      
+              <ion-item>
+                <ion-label mode="md">Elija el tipo de servicio</ion-label>
+                <ion-select interface="popover" [(ngModel)]="todo.typeservice" formControlName="typeservice" name="typeservice">
+                  <ion-select-option value="Servicio por mes">Servicio por mes</ion-select-option>
+                  <ion-select-option value="Servicio de agendamiento">Servicio de agendamiento</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+            <ion-item>
+                <ion-label mode="md">Seleccione una categoria</ion-label>
+                <ion-select value="{{todo.catId}}" interface="popover" [(ngModel)]="todo.catId" formControlName="catId" name="catId">
+                  <ion-select-option *ngFor = "let cat of category" value="{{ cat.id }}">{{ cat.name }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item>
+                <ion-label mode="md" position="floating">Descripción</ion-label>
+                <ion-textarea [(ngModel)]="todo.asociadoDescription" formControlName="asociadoDescription" name="asociadoDescription" required="true"></ion-textarea>
+            </ion-item>
+            
+            <br>
+    
+            <ion-button mode="ios" expand="block" [disabled]="!directionForm.valid" (click)="saveTodo()">
+                <b>Actualizar</b>
+            </ion-button>
+    
+        </div>
+    </form>
+</ion-content>

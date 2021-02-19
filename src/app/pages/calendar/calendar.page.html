@@ -1,0 +1,62 @@
+<app-header titulo="Citas" color="secondary"></app-header>
+
+<ion-content>
+
+  <!-- Card for adding a new event -->
+  <ion-card>
+    <ion-card-header tappable>
+      <ion-card-title>Crear Cita</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Descripción" [(ngModel)]="event.desc"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" placeholder="Cupos" [(ngModel)]="event.cupos"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Inicio</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fin</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>¿Todo el dia?</ion-label>
+        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+      </ion-item>
+      <ion-button fill="outline" color="secondary" expand="block" (click)="addEvent()">Crear Cita</ion-button>
+ 
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-row>
+    <!-- Change the displayed calendar mode -->
+    <ion-col size="4">
+      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Mes</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'" (click)="changeMode('week')">Semana</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'" (click)="changeMode('day')">Dia</ion-button>
+    </ion-col>
+  </ion-row>
+ 
+  <calendar 
+  [eventSource]="eventSource" 
+  [calendarMode]="calendar.mode" 
+  [currentDate]="calendar.currentDate"
+  (onEventSelected)="onEventSelected($event)"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onTimeSelected)="onTimeSelected($event)" 
+  startHour="7"
+  endHour="19"
+  step="30"
+  startingDayWeek="1"
+  >
+  </calendar>
+
+</ion-content>

@@ -1,0 +1,23 @@
+.ix{
+    padding-left: 10%;
+}
+
+.img{
+    height: 80px;
+    width: 80px;
+    border-radius: 100% !important;
+    border: 1px solid var(--ion-color-primary);
+    overflow: hidden;
+    margin:auto;
+}
+
+.mb{
+    padding: 0px;
+    margin: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+    .ix{
+        padding-left: 20%;
+    }
+}

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="{{color}}">
+    <ion-button slot="end" fill="clear" (click)="closeModal()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center"><h2 class="ix">Agendar</h2></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-row *ngFor="let todo of todos">
+    <ion-col class="card" *ngIf="todo.cupos > 0">
+      <ion-label *ngIf="todo.allDay===true"  class="ion-padding">
+        {{todo.endTime.toDate() | date:'dd/MMM/yyyy' }} - Evento dia completo <br>
+        Cupos disponibles: {{todo.cupos}}
+      </ion-label>
+      <ion-label *ngIf="todo.allDay===false" class="ion-padding ion-text-center">
+        {{todo.startTime.toDate() | date:'dd MMM yyyy ha' }} - {{todo.endTime.toDate() | date:'dd MMM yyyy ha' }} <br>
+        Cupos disponibles: {{todo.cupos}}
+      </ion-label>
+      <form [formGroup]="directionForm">
+        <ion-label>
+          <ion-item>
+            <ion-select interface="popover" [(ngModel)]="payMethod" name="payMethod" formControlName="payMethod" placeholder="Seleccionar pago">
+              <ion-select-option value="Efectivo">Efectivo</ion-select-option>
+              <ion-select-option value="Tarjeta">Online</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-label>
+        <ion-button [disabled]="!directionForm.valid" mode="ios" expand="block" shape="round" (click)="checkout(todo.price, todo.emisorUid, todo.product, todo.uid, todo.cupos, todo.catId)">
+          Ir a pagar
+        </ion-button>
+      </form>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

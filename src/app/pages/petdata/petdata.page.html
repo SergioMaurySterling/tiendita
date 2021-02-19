@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="end" fill="clear" (click)="closeModal()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="ion-text-center auto" *ngIf="trigger === false">
+    <ion-img src="assets/Logo-petti-navi.svg" class="img"></ion-img>
+    <ion-title><h1>Agrega a tu mascota</h1></ion-title>
+    <p>
+      Agrega a tu mascota, podrás enterarte de eventos y beneficios para tus peludos.
+    </p>
+    <ion-button (click)="addPet()" mode="ios" color="primary" shape="round">
+      <b>Agregar mascota</b>
+    </ion-button> <br>
+    <ion-button (click)="closeModal()" mode="ios" fill="clear" shape="round">
+      <b>Omitir este paso</b>
+    </ion-button>
+  </div>
+
+  <div class="ion-text-center" *ngIf="trigger === true">
+
+    <ion-img src="assets/Logo-petti-navi.svg" class="img"></ion-img>
+    <ion-title><h1>Agrega a tu mascota</h1></ion-title>
+
+    <form [formGroup]="directionForm">
+
+      <ion-item>
+        <ion-label mode="md">Seleccione una imagen</ion-label>
+        <input type="file" [(ngModel)]="petImage" formControlName="petImage" name="petImage" (change)="chooseFile($event)">
+      </ion-item>
+
+      <ion-item>
+        <ion-label mode="md" position="floating">Nombre de la mascota</ion-label>
+        <ion-input type="text" [(ngModel)]="petName" formControlName="petName" name="petName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-radio-group [(ngModel)]="petSize" formControlName="petSize" name="petSize">
+          <ion-list-header>
+            <ion-label>Elige un tamaño</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>Pequeño</ion-label>
+            <ion-radio slot="start" value="Pequeño"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Mediano</ion-label>
+            <ion-radio slot="start" value="Mediano"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Grande</ion-label>
+            <ion-radio slot="start" value="Grande"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Extra-Grande</ion-label>
+            <ion-radio slot="start" value="Extra-Grande"></ion-radio>
+          </ion-item>
+
+        </ion-radio-group>
+      </ion-item>
+
+      <ion-item>
+        <ion-label mode="md" position="floating">Selecciona la raza de tu mascota</ion-label>
+        <ion-input type="text" [(ngModel)]="petRace" formControlName="petRace" name="petRace"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-radio-group [(ngModel)]="petAge" formControlName="petAge" name="petAge">
+          <ion-list-header>
+            <ion-label>Rango de edad</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>Cachorro</ion-label>
+            <ion-radio slot="start" value="Cachorro"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Adulto</ion-label>
+            <ion-radio slot="start" value="Adulto"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Mayor +7 años</ion-label>
+            <ion-radio slot="start" value="Mayor +7 años"></ion-radio>
+          </ion-item>
+
+        </ion-radio-group>
+      </ion-item>
+
+      <ion-item>
+        <ion-radio-group [(ngModel)]="petFur" formControlName="petFur" name="petFur">
+          <ion-list-header>
+            <ion-label>Pelaje</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>Corto</ion-label>
+            <ion-radio slot="start" value="Corto"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Mediano</ion-label>
+            <ion-radio slot="start" value="Mediano"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Largo</ion-label>
+            <ion-radio slot="start" value="Largo"></ion-radio>
+          </ion-item>
+
+        </ion-radio-group>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label mode="md" position="floating">Observaciones sobre tu mascota</ion-label>
+        <ion-textarea type="text" [(ngModel)]="petObservations" formControlName="petObservations" name="petObservations"></ion-textarea>
+      </ion-item>
+
+      <br>
+      <ion-button mode="ios" expand="block" [disabled]="!directionForm.valid" (click)="saveTodo()">
+        <b>Agregar</b>
+      </ion-button>
+
+    </form>
+  </div>
+</ion-content>

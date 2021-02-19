@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="{{color}}">
+    <ion-button slot="end" fill="clear" (click)="closeModal()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center"><h2 class="ix">Agregar</h2></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="directionForm">
+    <div class="auto">
+
+        <ion-item>
+          <ion-label mode="md">Seleccione una imagen</ion-label>
+          <input type="file" [(ngModel)]="imageUrl" formControlName="imageUrl" name="imageUrl" (change)="chooseFile($event)" required="true">
+        </ion-item>
+        
+        <ion-item>
+            <ion-label mode="md" position="floating">Nombre de la mascota</ion-label>
+            <ion-input type="text" [(ngModel)]="petName" formControlName="petName" name="petName" required="true"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="nombre === 'Perdidos'" >
+          <ion-label mode="md" position="floating">Situacion de la mascota</ion-label>
+          <ion-select interface="popover" [(ngModel)]="situation" formControlName="situation" name="situation">
+            <ion-select-option value="Se busca">Se busca</ion-select-option>
+            <ion-select-option value="Busco a su dueño">Busco a su dueño</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label mode="md" position="floating">Edad de la mascota</ion-label>
+            <ion-input type="text" [(ngModel)]="age" formControlName="age" name="age" required="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label mode="md" position="floating">Ciudad de ubicación</ion-label>
+            <ion-input type="text" [(ngModel)]="city" formControlName="city" name="city" required="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label mode="md" position="floating">Descripción</ion-label>
+            <ion-textarea [(ngModel)]="description" formControlName="description" name="description" required="true"></ion-textarea>
+        </ion-item>
+        
+        <br>
+
+        <ion-button mode="ios" color="{{color}}" expand="block" [disabled]="!directionForm.valid" (click)="saveTodo()">
+          <b>Publicar</b>
+        </ion-button>
+
+    </div>
+</form>
+
+</ion-content>

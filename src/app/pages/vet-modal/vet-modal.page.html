@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="{{color}}">
+    <ion-button slot="end" fill="clear" (click)="closeModal()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center"><h2 class="ix">{{ nombre }}</h2></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ng-container *ngIf="!todos || todos.length == 0">
+  <ion-list-header color="medium ion-text-center">
+    <h4><b>Aun no se agregan servicios en esta categoria...</b></h4>
+  </ion-list-header>
+  <div *ngFor="let n of [0,1,2,3]" class="ion-padding">
+    <ion-skeleton-text></ion-skeleton-text>
+    <p>
+      <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
+    </p>
+  </div>
+</ng-container>
+
+<ion-content>
+  <ion-card *ngFor="let todo of todos; let i = index" [attr.data-index]="i">
+    <ion-card-header class="ion-text-center" color="secondary">
+      <ion-card-title>{{todo.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size-md="4" size-xs="4">
+          <ion-img src="{{empImageUrl[i]}}" class="img"></ion-img>
+        </ion-col>
+        <ion-col size-md="4" size-xs="8">
+          <ion-card-title>{{empName[i]}}</ion-card-title>
+          <div class="rate">
+            <ion-icon name="star" color="primary"></ion-icon>
+            <label >
+                {{empRate[i] | number: '1.2-2'}}
+            </label>
+        </div>
+          $ {{todo.price | number}} <br>
+          {{empDirection[i]}}
+        </ion-col>
+        <ion-col class="mb" size-md="4" size-xs="12" *ngIf="todo.typeservice === 'Servicio de agendamiento'" >
+          <ion-row>
+            <ion-col class="mb" size-md="12" size-xs="6">
+              <ion-button (click)="Agendar(todo.asociadoID, todo.asociadoName, todo.uid)" color="secondary" expand="block" shape="round">
+                Agendar cita
+              </ion-button>
+            </ion-col>
+            <ion-col class="mb" size-md="12" size-xs="6">
+              <ion-button (click)="abrirModal(todo.uid, todo.name)" expand="block" color="secondary" shape="round">
+                Detalle
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size-md="4" size-xs="12" *ngIf="todo.typeservice === 'Servicio por mes'" >
+
+          <ion-row>
+            <ion-col class="mb" size-md="12" size-xs="6">
+              <ion-button (click)="checkout(todo.price, todo.asociadoID, todo.name, todo.uid)" color="secondary" expand="block" shape="round">
+                Pagar mes
+              </ion-button>
+            </ion-col>
+            <ion-col class="mb" size-md="12" size-xs="6">
+              <ion-button (click)="abrirModal(todo.uid, todo.asociadoName)" expand="block" color="secondary" shape="round">
+                Detalles
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

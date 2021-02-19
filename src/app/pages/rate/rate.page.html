@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="end" fill="clear" (click)="close()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center"><h2 class="ix">Calificar</h2></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="rating">
+    <ionic5-star-rating #rating
+        activeIcon = "star"
+        defaultIcon = "star-outline"
+        activeColor = "#488aff" 
+        defaultColor = "#ADADAD"
+        readonly="false"
+        rating="0"
+        fontSize = "32px"
+        (ratingChanged)="logRatingChange($event)">
+    </ionic5-star-rating>
+  </div>
+  
+</ion-content>

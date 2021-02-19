@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="{{color}}">
+    <ion-button slot="end" fill="clear" (click)="closeModal()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center"><h2 class="ix">{{ nombre }}</h2></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div id="card" class="ion-text-center">
+    <ion-slides mode="ios" pager="ios" scrollbar="false">
+      <ion-slide *ngFor="let item of todosImg" class="slide">
+        <img src="{{item.filepath}}" class="imgs" height="100px">
+      </ion-slide>
+    </ion-slides>
+    <ion-item-divider mode=ios color="{{color}}"></ion-item-divider>
+    
+    <ion-button mode="ios" class="porcentaje ion-text-center" color="{{color}}">
+      <ion-icon name="cash-outline"></ion-icon>
+      <b class="ml-2"> ${{ price | number: '1.0-0' }} <br> 
+        <del *ngIf="delprice" >${{ delprice | number: '1.0-0' }}</del>
+      </b>
+    </ion-button>
+
+    <div class="card-bt">
+        <h2>{{productName}}</h2>
+        <P>
+          {{description}}
+        </P>
+    </div>
+  </div>
+
+  <ion-button mode="ios" class="situation" color="dark" (click)="addToCart(todos)">
+    Agregar
+  </ion-button>
+
+</ion-content>

@@ -1,0 +1,63 @@
+ion-content {
+    --background: url('https://firebasestorage.googleapis.com/v0/b/petti-2d60d.appspot.com/o/Home%2Fpattern.jpg?alt=media&token=3a5a14d7-71c4-44b2-a12f-5a50fc49ac85');
+}
+
+#card{
+    border-radius: 5px;
+    box-shadow: 5px 10px 8px #cccccc;
+    cursor: pointer;
+}
+
+.your-img {
+    border-radius: 5px 5px 0px 0px !important;
+    overflow: hidden;
+    background: rgba(246, 224, 124, 0.8);
+    height: 150px;
+}
+
+.card-bt{
+    background: white;
+    border-radius: 5px;
+    height: 65px;
+    padding-top: 10px;
+}
+
+h1{
+    font-size: 30px;
+}
+
+.divider{
+    height: 4px;
+    width: 100%;
+}
+
+.situation{
+    font-size: 16px;
+    color:white;
+    height: 40px;
+    width: 98%;
+    position: absolute; right: -1%; top: 5%;
+    width: 40%;
+}
+
+@media only screen and (min-width: 600px){
+    .your-img{
+        height: 300px;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .your-img{
+        height: 450px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .font{
+        font-size: 9px;
+    }
+    .situation{
+        width: 75%;
+        height: 25px;
+    }
+}

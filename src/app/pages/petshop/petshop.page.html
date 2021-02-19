@@ -1,0 +1,38 @@
+<app-header titulo="Tienda" color="dark"></app-header>
+
+<ion-content>
+
+    <p class="ion-text-center pt-1 mb-0 mx-2">
+        <i>Selecciona tu tienda favorita</i>
+    </p>
+
+    <ion-searchbar placeholder="Ingrese la busqueda" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+
+    <ion-row class="ion-padding">
+        <ion-col size-md="4" size-xs="12" class="py-0 px-0" *ngFor="let ald of aliados | filtro: textoBuscar: 'name'" >
+            <ion-card mode="md">
+                <div class="rate">
+                    <ion-icon name="star" color="primary"></ion-icon>
+                    <label >
+                        {{ald.rate.toFixed(1)}}
+                    </label>
+                </div>
+                <ion-card-header buttom [routerLink]="['/cart', ald.uid]" (click)="delCart()">
+                    <ion-row>
+                        <ion-col size="4" class="center">
+                            <ion-img *ngIf="ald.imageUrl"  src="{{ald.imageUrl}}" class="img"></ion-img>
+                            <ion-img *ngIf="!ald.imageUrl"  src="assets/logo-amarillo.svg" class="img"></ion-img>
+                        </ion-col>
+                        <ion-col size="8" class="center">
+                            <ion-card-title>
+                                {{ald.name}}
+                            </ion-card-title>
+                            {{ald.direction}}
+                        </ion-col>
+                    </ion-row>
+                </ion-card-header>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

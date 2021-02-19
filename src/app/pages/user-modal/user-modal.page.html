@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="end" fill="clear" (click)="closeModal()">
+      <ion-icon style="color: #fff;" name="close"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center"><h2 class="ix">{{ nombre }}</h2></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-text-center py-3">
+    <img *ngIf="imageUrl" src="{{imageUrl}}" class="your-img">
+    <img *ngIf="!imageUrl" src="assets/logo-amarillo.svg" class="your-img"> <br><br>
+
+    <ion-item-divider class="ion-text-center" mode=ios color="primary">
+      <div *ngIf="rol==='emp'" >
+        <ion-icon name="star" color="secondary"></ion-icon> 
+        {{ rate | number: '1.2-2' }}
+      </div>
+    </ion-item-divider> <br>
+
+    <ion-button mode="md" class="bt" color="primary" shape="round" *ngIf="uid !== userId" (click)="AddChatRoom()">
+      <ion-icon name="chatbubble-ellipses"></ion-icon>
+    </ion-button> <br>
+
+    <ion-text *ngIf="nit" >
+      <b>Nit: </b>{{nit}}<br>
+    </ion-text>
+    <ion-text *ngIf="description" >
+      {{description}}<br>
+    </ion-text>
+    <ion-text *ngIf="direction" >
+      <b>Direccion:</b> {{direction}}<br>
+    </ion-text>
+    <ion-text *ngIf="horario" >
+      <b>Horario:</b> {{horario}}<br>
+    </ion-text>
+  </div>
+  
+  <div *ngIf="isPetData === true" class="ion-text-center">
+    <ion-item-divider color="primary">
+      <ion-label><b>Datos de la mascota</b></ion-label>
+    </ion-item-divider>
+
+    <ion-list>
+      <ion-label><h1>{{user.petName}}</h1></ion-label>
+    </ion-list>
+
+    <ion-list>
+      <img *ngIf="user.petImage" src="{{user.petImage}}" class="your-img">
+    </ion-list>
+
+    <ion-list>
+      <ion-label><h3><b>Tamaño: {{user.petSize}}</b></h3></ion-label>
+    </ion-list>
+    <ion-list>
+      <ion-label><h3><b>Raza: {{user.petRace}}</b></h3></ion-label>
+    </ion-list>
+    <ion-list>
+      <ion-label><h3><b>Edad: {{user.petAge}}</b></h3></ion-label>
+    </ion-list>
+    <ion-list>
+      <ion-label><h3><b>Pelaje: {{user.petFur}}</b></h3></ion-label>
+    </ion-list>
+    <ion-list>
+      <ion-label><h3><b>Observaciones: {{user.petObservations}}</b></h3></ion-label>
+    </ion-list>
+    
+  </div>
+
+</ion-content>

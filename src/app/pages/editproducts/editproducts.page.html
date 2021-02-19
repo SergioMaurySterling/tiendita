@@ -1,0 +1,50 @@
+<app-header titulo="Editar" color="dark"></app-header>
+
+<ion-content>
+    <form [formGroup]="directionForm">
+        <div class="auto">
+
+            <ion-item>
+                <ion-card *ngFor="let item of images">
+                    <ion-card-content>
+                        <img src="{{item.filepath}}" width="250px">
+                    </ion-card-content>
+                </ion-card>
+            </ion-item>
+
+            <ion-item>
+                <ion-label mode="md" position="floating">Nombre del producto</ion-label>
+                <ion-input type="text" [(ngModel)]="todo.name" formControlName="name" name="name" required="true"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label mode="md" position="floating">Precio</ion-label>
+                <ion-input type="number" [(ngModel)]="todo.price" formControlName="price" name="price" required="true"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label mode="md" position="floating">Precio Anterior</ion-label>
+                <ion-input type="number" [(ngModel)]="todo.delprice" formControlName="delprice" name="delprice" required="true"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label mode="md">Seleccione una categoria</ion-label>
+                <ion-select value="{{todo.ProdcutCatId}}" interface="popover" [(ngModel)]="todo.ProdcutCatId" formControlName="ProdcutCatId" name="ProdcutCatId">
+                  <ion-select-option *ngFor = "let cat of category" value="{{ cat.id }}">{{ cat.name }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item>
+                <ion-label mode="md" position="floating">Descripción</ion-label>
+                <ion-textarea [(ngModel)]="todo.description" formControlName="description" name="description" required="true"></ion-textarea>
+            </ion-item>
+            
+            <br>
+    
+            <ion-button mode="ios" expand="block" (click)="saveTodo()">
+                <b>Actualizar</b>
+            </ion-button>
+    
+        </div>
+    </form>
+</ion-content>

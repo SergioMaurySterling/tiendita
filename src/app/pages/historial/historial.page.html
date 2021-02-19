@@ -1,0 +1,245 @@
+<app-header *ngIf="rol === 'user'"  titulo="Mis compras" color="primary"></app-header>
+<app-header *ngIf="rol === 'emp'"  titulo="Mis ventas" color="primary"></app-header>
+<app-header *ngIf="rol === 'admin'"  titulo="Compras/Ventas" color="primary"></app-header>
+
+<ion-toolbar color="warning">
+    <ion-segment [(ngModel)]="selectTabs" mode="md">
+        <ion-segment-button value="petShop">
+            <ion-label><b>Tienda</b></ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="vetCare">
+            <ion-label><b>Vet & Care</b></ion-label>
+        </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+<ion-content>
+
+    <p class="ion-text-center pt-4 mx-2">
+        <i>Aquí encontrarás el historial de tus pagos realizados</i>
+    </p>
+
+    <ion-row>
+        <ion-col size-md="6" size-xs="12">
+            <ion-searchbar placeholder="Buscar" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col size-md="6" size-xs="12">
+            <ion-item>
+                <ion-select name="search" interface="popover" [(ngModel)]="search" placeholder="Filtro de busqueda">
+                    <ion-select-option value="ReferenceId">Buscar por referencia</ion-select-option>
+                    <ion-select-option value="date">Buscar por fecha</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    
+    <div *ngIf="selectTabs == 'petShop'" >
+        <ion-card class="ion-text-center" mode="md" size="6" *ngFor="let todo of todos | filtro: textoBuscar: search">
+
+            <ion-card-header *ngIf="todo.status === 'APPROVED'" color="primary" class="pb-2">
+                <ion-card-title>Referencia: {{todo.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo.WompiPayId != null" >Transaccion: {{todo.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="todo.status === 'DECLINED' || todo.status === 'REJECTED'" color="danger" class="pb-2">
+                <ion-card-title>Referencia: {{todo.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo.WompiPayId != null" >Transaccion: {{todo.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="todo.status === 'PROCESS'" color="secondary" class="pb-2">
+                <ion-card-title>Referencia: {{todo.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo.WompiPayId != null" >Transaccion: {{todo.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="todo.status === 'COMPLETE'" color="success" class="pb-2">
+                <ion-card-title>Referencia: {{todo.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo.WompiPayId != null" >Transaccion: {{todo.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-item-divider>
+                <ion-label>ARTÍCULOS:</ion-label>
+            </ion-item-divider>
+            <ion-card-content class="ion-text-end py-0">
+                <ion-row *ngFor="let prod of todo.products" >
+                    <ion-col>{{prod.name}}</ion-col>
+                    <ion-col>X {{prod.amount}}</ion-col>
+                    <ion-col>{{prod.price | currency:'$':true:"1.0" }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col><b>Dirección: </b></ion-col>
+                    <ion-col>{{ todo.deliveryDirections.direction }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col><b>Domicilio: </b></ion-col>
+                    <ion-col>{{ todo.dPrice | currency:'$':true:"1.0" }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col><b>Total: </b></ion-col>
+                    <ion-col>{{todo.total | currency:'$':true:"1.0" }}</ion-col>
+                </ion-row>
+            </ion-card-content>
+            <ion-item-divider>
+                <ion-col *ngIf="rol!=='user'"  size="6">
+                    <ion-button (click)="openData(todo.userUid)" mode="ios" expand="block" shape="round">
+                        <b>Cliente</b>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button (click)="openData(todo.empUid)" mode="ios" expand="block" shape="round">
+                        <b>Empresa</b>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6" *ngIf="rol=='user' && todo.rating === false && todo.status === 'COMPLETE'">
+                    <ion-button (click)="ratePage(todo.empUid, todo.uid, 'Shop')" mode="ios" expand="block" shape="round">
+                        <b>Calificar servicio</b>
+                    </ion-button>
+                </ion-col>
+            </ion-item-divider>
+            <ion-card-content>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-label>Método de pago: <b>{{ todo.paymentMethod }}</b></ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-label>Estado del pedido: 
+                            <b *ngIf="todo.status === 'APPROVED'" style="color: var(--ion-color-primary)">PAGO APROBADO</b>
+                            <b *ngIf="todo.status === 'DECLINED'" style="color: var(--ion-color-danger)">PAGO DECLINADO</b>
+                            <b *ngIf="todo.status === 'ERROR'">ERROR AL PAGAR</b>
+    
+                            <b *ngIf="todo.status === 'PROCESS'" style="color: var(--ion-color-secondary)">PEDIDO EN PROCESO</b>
+                            <b *ngIf="todo.status === 'COMPLETE'" style="color: #00AE12">PEDIDO COMPLETADO</b>
+                            <b *ngIf="todo.status === 'REJECTED'" style="color: var(--ion-color-danger)">PEDIDO CANCELADO</b>
+                        </ion-label>
+                        <ion-label *ngIf="todo.reasonCancel" >
+                            <br>
+                            Razón de cancelación: <b style="color: var(--ion-color-danger)">{{todo.reasonCancel}}</b>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="todo.status === 'APPROVED' && rol === 'emp' || todo.status === 'PROCESS' && rol === 'emp'" >
+                    <ion-col size-md="6" size-sx="12">
+                        <ion-item>
+                            <ion-label>Cambiar estado del pedido</ion-label>
+                            <ion-select [(ngModel)]="changeStatusOrder" value="{{todo.status}}" mode="ios" interface="popover" name="estado">
+                                <ion-select-option value="PROCESS">En proceso</ion-select-option>
+                                <ion-select-option value="COMPLETE">Completado</ion-select-option>
+                                <ion-select-option value="REJECTED">Cancelado</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size-md="6" size-sx="12">
+                        <ion-button (click)="changeStatus(todo.uid)" size="small" expand="block" mode="ios" shape="round">
+                            <b>Actualizar Estado</b>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>            
+            </ion-card-content>
+            Realizado el: {{todo.date | date:'dd-MMM-yyyy h:mm:ss a' }} <br><br>
+        </ion-card>
+    </div>
+
+    <div *ngIf="selectTabs == 'vetCare'" >
+        <ion-card class="ion-text-center" mode="md" size="6" *ngFor="let todo2 of todos2 | filtro: textoBuscar: 'ReferenceId'">
+            
+            <ion-card-header *ngIf="todo2.status === 'APPROVED'" color="primary" class="pb-2">
+                <ion-card-title>Referencia: {{todo2.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo2.WompiPayId != null" >Transaccion: {{todo2.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="todo2.status === 'DECLINED' || todo2.status === 'REJECTED'" color="danger" class="pb-2">
+                <ion-card-title>Referencia: {{todo2.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo2.WompiPayId != null" >Transaccion: {{todo2.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="todo2.status === 'PROCESS'" color="secondary" class="pb-2">
+                <ion-card-title>Referencia: {{todo2.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo2.WompiPayId != null" >Transaccion: {{todo2.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="todo2.status === 'COMPLETE'" color="success" class="pb-2">
+                <ion-card-title>Referencia: {{todo2.ReferenceId}}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo2.WompiPayId != null" >Transaccion: {{todo2.WompiPayId}}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-item-divider>
+                <ion-label><b>Observaciones del caso:</b> {{todo2.petData}}</ion-label>
+            </ion-item-divider>
+            <ion-item-divider>
+                <ion-label>SERVICIOS:</ion-label>
+            </ion-item-divider>
+            <ion-card-content class="ion-text-end py-0">
+                <ion-row>
+                    <ion-col>{{todo2.products}}</ion-col>
+                    <ion-col>X1</ion-col>
+                    <ion-col>{{todo2.total | currency:'$':true:"1.0" }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col><b>Dirección: </b></ion-col>
+                    <ion-col>{{todo2.direction }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col><b>Total: </b></ion-col>
+                    <ion-col>{{todo2.total | currency:'$':true:"1.0" }}</ion-col>
+                </ion-row>
+            </ion-card-content>
+            <ion-item-divider>
+                <ion-col *ngIf="rol!=='user'"  size="6">
+                    <ion-button (click)="openData(todo2.userUid)" mode="ios" expand="block" shape="round">
+                        <b>Cliente</b>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button (click)="openData(todo2.empUid)" mode="ios" expand="block" shape="round">
+                        <b>Empresa</b>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6" *ngIf="rol=='user' && todo2.rating === false && todo2.status === 'COMPLETE'">
+                    <ion-button (click)="ratePage(todo2.empUid, todo2.uid, 'Vet')" mode="ios" expand="block" shape="round">
+                        <b>Calificar servicio</b>
+                    </ion-button>
+                </ion-col>
+            </ion-item-divider>
+            <ion-card-content>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-label>Método de pago: <b>{{ todo2.paymentMethod }}</b></ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-label>Estado del pedido: 
+                            <b *ngIf="todo2.status === 'APPROVED'" style="color: var(--ion-color-primary)">PAGO APROBADO</b>
+                            <b *ngIf="todo2.status === 'DECLINED'" style="color: var(--ion-color-danger)">PAGO DECLINADO</b>
+                            <b *ngIf="todo2.status === 'ERROR'">ERROR AL PAGAR</b>
+    
+                            <b *ngIf="todo2.status === 'PROCESS'" style="color: var(--ion-color-secondary)">PEDIDO EN PROCESO</b>
+                            <b *ngIf="todo2.status === 'COMPLETE'" style="color: #00AE12">PEDIDO COMPLETADO</b>
+                            <b *ngIf="todo2.status === 'REJECTED'" style="color: var(--ion-color-danger)">PEDIDO CANCELADO</b>
+                        </ion-label>
+                        <ion-label *ngIf="todo2.reasonCancel" >
+                            <br>
+                            Razón de cancelación: <b style="color: var(--ion-color-danger)">{{todo2.reasonCancel}}</b>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="todo2.status === 'APPROVED' && rol === 'emp' || todo2.status === 'PROCESS' && rol === 'emp'" >
+                    <ion-col size-md="6" size-xs="12">
+                        <ion-item>
+                            <ion-label>Cambiar estado del pedido</ion-label>
+                            <ion-select [(ngModel)]="changeStatusOrder" value="{{todo2.status}}" mode="ios" interface="popover" name="estado">
+                                <ion-select-option value="PROCESS">En proceso</ion-select-option>
+                                <ion-select-option value="COMPLETE">Completado</ion-select-option>
+                                <ion-select-option value="REJECTED">Cancelado</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size-md="6" size-xs="12">
+                        <ion-button (click)="changeStatus2(todo2.uid)" size="small" expand="block" mode="ios" shape="round">
+                            <b>Actualizar Estado</b>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>            
+            </ion-card-content>
+            Realizado el: {{todo2.date | date:'dd-MMM-yyyy h:mm:ss a' }} <br><br>
+        </ion-card>
+    </div>
+    
+
+</ion-content>

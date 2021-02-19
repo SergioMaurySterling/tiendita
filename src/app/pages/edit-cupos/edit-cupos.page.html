@@ -1,0 +1,39 @@
+<app-header titulo="Calendario" color="secondary"></app-header>
+
+<ion-content class="ion-padding ion-text-center">
+
+  <ion-row>
+    <ion-col size-md="4" size-xs="12" *ngFor="let todo of todos">
+      <div class="card">
+        <ion-label *ngIf="todo.allDay===true" style="padding: 5px;">
+          <h1>{{todo.product}}</h1>
+          {{todo.endTime.toDate() | date:'dd MMM yyyy' }} - Evento dia completo <br>
+          Cupos disponibles: {{todo.cupos}}
+        </ion-label>
+        <ion-label *ngIf="todo.allDay===false" style="padding: 5px;">
+          <h1>{{todo.product}}</h1>
+          {{todo.startTime.toDate() | date:'dd MMM yyyy ha' }} - {{todo.endTime.toDate() | date:'dd MMM yyyy ha' }} <br>
+          Cupos disponibles: {{todo.cupos}}
+        </ion-label>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button [routerLink]="['/editCalendar', todo.uid]" mode="ios" expand="block" shape="round">
+              <h2>Editar</h2>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button (click)="onRemove(todo)" mode="ios" color="danger" expand="block" shape="round">
+              <h2>Eliminar</h2>
+            </ion-button>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button (click)="duplicate(todo.uid)" expand="block" mode="ios" color="secondary" shape="round">
+              <h2>Duplicar</h2>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,18 @@
+.img{
+    margin-top: 20px;
+    height: 90px;
+}
+
+.auto{
+    margin:auto;
+}
+
+@media only screen and (min-width: 600px){
+    .auto{
+        width: 50%;
+    }
+}
+
+.list{
+    --background: #fff8d9 !important;
+}

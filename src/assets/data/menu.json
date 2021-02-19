@@ -1,0 +1,32 @@
+[
+    {
+        "icon": "home-outline",
+        "name": "Inicio",
+        "redirectTo": "/home"
+    },
+    {
+        "icon": "bag-handle-outline",
+        "name": "Tienda",
+        "redirectTo": "/petshop"
+    },
+    {
+        "icon": "fitness-outline",
+        "name": "Vet & Care",
+        "redirectTo": "/vet"
+    },
+    {
+        "icon": "heart-half-outline",
+        "name": "Coupet",
+        "redirectTo": "/coupet"
+    },
+    {
+        "icon": "heart-outline",
+        "name": "Adopción",
+        "redirectTo": "/adopcion"
+    },
+    {
+        "icon": "search-outline",
+        "name": "Mascotas perdidas",
+        "redirectTo": "/perdidos"
+    }
+]

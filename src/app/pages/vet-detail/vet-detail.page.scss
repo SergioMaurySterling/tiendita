@@ -1,0 +1,21 @@
+.bt{
+    height: 75px;
+    width: 75px;
+}
+
+.ix{
+    padding-left: 10%;
+}
+@media only screen and (max-width: 600px) {
+    .ix{
+        padding-left: 30%;
+    }
+}
+
+.img{
+    height: 200px;
+    width: 200px;
+    border-radius: 100% !important;
+    overflow: hidden;
+    margin:auto;
+}

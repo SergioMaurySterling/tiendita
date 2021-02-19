@@ -1,0 +1,28 @@
+<app-header titulo="Vet & Care" color="secondary"></app-header>
+
+<p class="ion-text-center pt-1 mx-2">
+  <i>Reserva y adquiere servicios profesionales para tu peludo</i>
+</p>
+
+<ion-content>
+
+  <ion-slides mode="ios" pager="ios" scrollbar="false">
+
+    <ion-slide button (click)="abrirModal(todo.id, todo.name)" *ngFor="let todo of todos">
+      <ion-button color="secondary" mode="ios" class="situation">
+        <span><h1 class="my-0 font">{{todo.name}}</h1></span>
+      </ion-button>
+      <div class="bottom center">
+        <img class="slide-img" src="{{todo.img}}" alt="">
+      </div>
+    </ion-slide>
+    
+  </ion-slides>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="rol=== 'emp' && user$ | async as user;">
+    <ion-fab-button color="secondary" (click)="newVet()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

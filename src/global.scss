@@ -24,3 +24,83 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+body{
+    position: absolute;
+    overflow-y:scroll;
+}
+
+ion-slides{
+    height: 100%;
+}
+
+.swiper-pagination-bullets{
+    margin-bottom: 15px !important;
+}
+.swiper-pagination-bullet
+{
+    border-radius: 12px !important;
+    width: 20px !important;
+    background:  #f6cf5f;
+}
+.swiper-pagination-bullet-active
+{
+    background:  #f6cf5f;
+}
+
+@font-face{
+    font-family: Lato;
+    src : url('assets/fonts/Lato-Regular.ttf');
+}
+
+@font-face{
+    font-family: GrandHotel;
+    src : url('assets/fonts/GrandHotel-Regular.otf');
+}
+
+*{
+    font-family: Lato;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: GrandHotel;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+.cart-modal{
+    --height: 50%;
+    --border-radius: 10px;
+    padding: 10px;
+}
+
+.action-sheet-title.sc-ion-action-sheet-ios{
+    font-size: 25px;
+}
+
+.alert-sub-title.sc-ion-alert-md {
+    font-family: Lato;
+}
+
+@media only screen and (min-width: 800px){
+    .my-custom-modal-css .modal-wrapper {
+        height: 90%;
+        top: 5%;
+        bottom: 5%;
+        position: absolute; 
+        display: block;  
+     }
+}
+
+.waybox-modal{
+    top: 0vh;
+}
+.waybox-backdrop{
+    overflow: hidden;
+}

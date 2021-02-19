@@ -1,0 +1,39 @@
+<ion-header mode="md">
+    <ion-toolbar mode="md" color="primary">
+      <ion-title class="ion-text-center py-2 pl-5"></ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button menu="primerMenu"></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="ion-padding">
+
+    <form [formGroup]="directionForm">
+        <div class="auto">
+            <ion-img src="assets/Logo-petti-navi.svg" class="img"></ion-img>
+            
+            <ion-item>
+                <ion-label mode="md" position="floating">Ingrese su correo</ion-label>
+                <ion-input type="email" formControlName="email" [(ngModel)]="email" name="email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label mode="md" position="floating">Ingrese su contraseña</ion-label>
+                <ion-input type="password" formControlName="password" [(ngModel)]="password" name="password"></ion-input>
+            </ion-item>
+            
+            <br>
+            <ion-button mode="ios" expand="block" [disabled]="!directionForm.valid" (click)="onSubmitLogin()">
+                <b>Iniciar sesión</b>
+            </ion-button>
+            <div class="ion-text-center pt-2">
+                <ion-label>¿No posee un usuario? <a routerLink="/register" style="color: var(--ion-color-secondary)"><b>Registrate como usuario, </b></a> ¿Deseas ser nuestro aliado? <a routerLink="/registeremp" style="color: var(--ion-color-secondary)"><b>Registrate como aliado</b></a></ion-label>
+            </div>
+            <div class="ion-text-center pt-2">
+                <ion-label>¿No recuerda su contraseña? <a routerLink="/recoverPassword" style="color: var(--ion-color-primary)"><b>Recuperar contraseña </b></a> </ion-label>
+            </div>
+            
+        </div>
+    </form>
+
+</ion-content>

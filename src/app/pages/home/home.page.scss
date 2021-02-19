@@ -1,0 +1,87 @@
+ion-slide {
+    .slide-img
+    {
+        height: 950px;
+    }
+    cursor: pointer;
+}
+
+ion-button {
+    --border-radius: 0px 10px 10px 0px;
+}
+
+.iniciar{
+    margin: 60% auto;
+    width: 40%;
+}
+
+.ix{
+    width: 112px;
+}
+
+.situation{
+    font-size: 16px;
+    color:white;
+    height: 60px;
+    position: absolute; left: -2.5px; top: 5%;
+    width: auto;
+    z-index: 1000;
+}
+
+.bottom{
+    position: absolute; bottom: 0%;
+}
+.center {
+    right: 0%;
+    left: 0%;
+}
+.right{
+    right: 0%;
+}
+
+@media only screen and (min-width: 600px) {
+    .ix{
+        width: 112px;
+    }
+    ion-slide {
+        display: block !important;
+      }
+}
+
+@media only screen and (min-width: 1200px) {
+    .ix{
+        width: 112px;
+    }
+    ion-slide {
+        display: block !important;
+      }
+}
+
+@media only screen and (max-width: 600px) {
+    .ix{
+        padding-left: 20%;
+        width: 160px;
+    }
+
+    ion-slide {
+        .slide-img
+        {   
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .ix{
+        padding-left: 20%;
+        width: 160px;
+    }
+    .font{
+        font-size: 30px;
+    }
+
+    .situation{
+        width: auto;
+    }
+}

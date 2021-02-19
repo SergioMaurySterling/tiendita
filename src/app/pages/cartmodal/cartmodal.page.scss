@@ -1,0 +1,17 @@
+.navdiv{
+    background: var(--ion-color-primary);
+}
+
+.list{
+    --background: #fff8d9 !important;
+}
+
+.ix{
+    padding-left: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+    .ix{
+        padding-left: 30%;
+    }
+}

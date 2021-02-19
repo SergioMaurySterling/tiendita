@@ -1,0 +1,40 @@
+<app-header titulo="Cupos" color="secondary"></app-header>
+
+<ion-content>
+  <form [formGroup]="directionForm">
+    <div class="auto">
+
+        <ion-item>
+            <ion-label mode="md">¿Todo el día?</ion-label>
+            <ion-checkbox checked="allDay" [(ngModel)]="allDay" formControlName="allDay" name="allDay" required="true"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="allDay === true" >
+          <ion-label mode="md" position="floating">Dia del evento</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY" (ionChange)="doEnd(this.endTime)" [(ngModel)]="endTime" formControlName="endTime" name="endTime" required="true"></ion-datetime>
+        </ion-item>
+
+        <ion-item *ngIf="allDay != true" >
+          <ion-label mode="md" position="floating">Inicio</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY HH:mm A" value="2019-12-20T12:07:52.830-05:00" (ionChange)="doStart(this.startTime)" [(ngModel)]="startTime" formControlName="startTime" name="startTime" required="true"></ion-datetime>
+        </ion-item>
+
+        <ion-item *ngIf="allDay != true" >
+          <ion-label mode="md" position="floating">Fin</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY HH:mm A" (ionChange)="doEnd(this.endTime)" [(ngModel)]="endTime" formControlName="endTime" name="endTime" required="true"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label mode="md" position="floating">Cupos</ion-label>
+          <ion-input type="text" [(ngModel)]="cupos" formControlName="cupos" name="cupos" required="true"></ion-input>
+        </ion-item>
+
+        <br>
+
+        <ion-button mode="ios" expand="block" (click)="saveTodo()">
+            <b>Actualizar</b>
+        </ion-button>
+
+    </div>
+</form>
+</ion-content>

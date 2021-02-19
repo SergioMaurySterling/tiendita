@@ -1,0 +1,43 @@
+<app-header titulo="Usuarios" color="primary"></app-header>
+
+<ion-toolbar color="warning" *ngIf="rol === 'admin'">
+  <ion-segment [(ngModel)]="selectTabs" mode="md">
+    <ion-segment-button value="actives">
+      <ion-label><b>Activos</b></ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Noactives">
+      <ion-label><b>No Activos</b></ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-searchbar placeholder="Ingrese la busqueda" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+
+<ion-content>
+  <ion-item>
+    <ion-col size=4><b>Nombre</b></ion-col>
+    <ion-col size=4><b>Correo</b></ion-col>
+    <ion-col size=4></ion-col>
+  </ion-item>
+  <ion-list *ngIf="rol === 'admin' && selectTabs == 'actives'">
+    <ion-item *ngFor="let todo of todos | filtro: textoBuscar: 'name'" >
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-col size=4>{{todo.name}} {{todo.lastname}}</ion-col>
+      <ion-col size=4>{{todo.email}}</ion-col>
+      <ion-col size=4>
+        <ion-toggle color="primary" [(ngModel)]="todo.isActive" (ionChange)="change(todo.isActive, todo.uid)"></ion-toggle>
+      </ion-col>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="rol === 'admin' && selectTabs == 'Noactives'">
+    <ion-item *ngFor="let todo2 of todos2 | filtro: textoBuscar: 'name'" >
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-col size=4>{{todo2.name}} {{todo2.lastname}}</ion-col>
+      <ion-col size=4>{{todo2.email}}</ion-col>
+      <ion-col size=4>
+        <ion-toggle color="primary" [(ngModel)]="todo2.isActive" (ionChange)="change(todo2.isActive, todo2.uid)"></ion-toggle>
+      </ion-col>
+    </ion-item>
+  </ion-list>
+</ion-content>

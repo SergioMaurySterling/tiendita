@@ -1,0 +1,73 @@
+<app-header titulo="Analítica" color="primary"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="chart-container">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <div>
+
+    <ion-item>
+      <h1><p>Detalles de los servicios</p></h1>
+    </ion-item>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Servicio</th>
+            <th scope="col">Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Calificación</td>
+            <td><ion-icon slot="end" color="primary" name="star"></ion-icon>{{ rate | number: '1.2-2' }}</td>
+          </tr>
+          <tr>
+            <td>Servicios y ventas totales</td>
+            <td><ion-icon slot="end" color="medium" name="bar-chart"></ion-icon>{{serviceTotal()}}</td>
+          </tr>
+          <tr>
+            <td>Servicios y ventas aprobados</td>
+            <td><ion-icon slot="end" color="primary" name="bar-chart"></ion-icon>{{serviceApproved()}}</td>
+          </tr>
+          <tr>
+            <td>Servicios y ventas en proceso</td>
+            <td><ion-icon slot="end" color="secondary" name="bar-chart"></ion-icon>{{serviceProcess()}}</td>
+          </tr>
+          <tr>
+            <td>Servicios y ventas completados</td>
+            <td>
+              <ion-icon slot="end" color="success" name="bar-chart"></ion-icon>{{serviceComplete()}}
+            </td>
+          </tr>
+          <tr>
+            <td>Servicios o ventas cancelados</td>
+            <td>
+              <ion-icon slot="end" color="danger" name="bar-chart"></ion-icon>{{serviceCancelado()}}
+            </td>
+          </tr>
+          <tr>
+            <td>Ventas totales de productos y servicios</td>
+            <td>
+              <ion-icon slot="end" color="success" name="cash-outline"></ion-icon>{{productSum | currency:'$':true:"1.0"}}
+            </td>
+          </tr>
+          <tr>
+            <td>Producto que más se vende</td>
+            <td>
+              <ion-icon slot="end" color="dark" name="bag-handle-outline"></ion-icon>{{payMoreVentName}}
+            </td>
+          </tr>
+          <tr>
+            <td>Servicio más solicitado</td>
+            <td>
+              <ion-icon slot="end" color="secondary" name="fitness-outline"></ion-icon>{{payMoreVetName}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>

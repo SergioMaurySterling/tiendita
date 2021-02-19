@@ -1,0 +1,73 @@
+<app-header titulo="Productos" color="dark"></app-header>
+
+<ion-content>
+
+  <p class="ion-text-center pt-2 mb-0 mx-2" *ngIf="aldHorario" >
+    <i><b>Horario de atención: {{aldHorario}}</b></i> <br>
+  </p>
+
+  <ion-row>
+    <ion-col size-xs="12" size-md="6">
+      <ion-searchbar placeholder="Buscar por nombre" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
+    </ion-col>
+    <ion-col size-xs="12" size-md="6">
+      <ion-item>
+        <ion-label mode="md">Seleccionar por categoria</ion-label>
+        <ion-select (ionChange)="SelectCat($event.target.value)" interface="popover" name="ProdcutCatId">
+          <ion-select-option value="">Todos</ion-select-option>
+          <ion-select-option value="{{pCat.id}}" *ngFor="let pCat of productCat" >{{pCat.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ng-container *ngIf="!products || products.length == 0">
+    <ion-list-header color="medium ion-text-center">
+      <h4><b>Este Aliado aun no ha agregado productos...</b></h4>
+    </ion-list-header>
+    <div *ngFor="let n of [0,1,2,3]" class="ion-padding">
+      <ion-skeleton-text></ion-skeleton-text>
+      <p>
+        <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
+      </p>
+    </div>
+  </ng-container>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="3" size-xs="6" *ngFor="let todo of products | filtro: textoBuscar: 'name' | filtro: textoBuscarB: 'ProdcutCatId'">
+        <div id="card" class="ion-text-center">
+          <ion-img src="{{ todo.imageUrl.filepath }}" class="your-img" *ngIf="todo.imageUrl"  (click)="abrirModal(todo.uid)"></ion-img>
+
+          <ion-button mode="md" class="situation" color="dark" (click)="addToCart(todo)">
+            Agregar
+          </ion-button>
+
+          <div class="divider" style="background: var(--ion-color-dark);"></div>
+    
+          <div class="card-bt">
+            <ion-label>
+              <h1 class="px-1">{{ todo.name }}</h1>
+              <b *ngIf="todo.delprice"  style="color: var(--ion-color-danger);" class="font"><del>${{ todo.delprice | number: '1.0-0' }} </del></b>
+              <b style="color: var(--ion-color-secondary);" class="font">${{ todo.price | number: '1.0-0' }}</b>
+            </ion-label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+            
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button class="cart" (click)="openCart()" color="dark" #cart>
+      <div class="cart-length">{{ cartItemCount | async }}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="rol === 'emp'">
+    <ion-fab-button color="tertiary" (click)="abrirNewModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

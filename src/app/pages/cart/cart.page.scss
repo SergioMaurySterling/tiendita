@@ -1,0 +1,102 @@
+.titl{
+    font-size: 40px;
+    color: var(--ion-color-dark);
+}
+
+.cart{
+    height: 70px;
+    width: 70px;
+}
+
+.add{
+    height: 55px;
+    width: 55px;
+}
+
+.cart-icon {
+    font-size: 50px;
+}
+
+.cart-length{
+    color: var(--ion-color-dark);
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    font-weight: 600;
+    font-size: 1em;
+    min-width: 25px;
+    z-index: 10;
+}
+
+#card{
+    background: white;
+    border-radius: 5px;
+    border: 1.3px solid #cccccc;
+    box-shadow: 5px 10px 8px #cccccc;
+    cursor: pointer;
+}
+
+.your-img {
+    border-radius: 5px 5px 0px 0px !important;
+    overflow: hidden;
+    background:#fff;
+    height: 150px;
+}
+
+.card-bt{
+    height: 100px;
+    padding-top: 10px;
+}
+
+h1{
+    font-size: 26px;
+}
+
+.divider{
+    height: 4px;
+    width: 100%;
+}
+
+.pay{
+    position: absolute;
+    top: 10px;
+    right: 0px;
+}
+
+.situation{
+    font-size: 14px;
+    color:white;
+    height: 40px;
+    width: 98%;
+    position: absolute; right: -1%; top: 5%;
+    width: 40%;
+}
+
+@media only screen and (min-width: 600px){
+    .your-img{
+        height: 300px;
+    }
+    .add{
+        height: 60px;
+        width: 60px;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .your-img{
+        height: 200px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .situation{
+        height: 23px;
+        width: 55%;
+    }
+    h1{
+        font-size: 20px;
+    }
+    .font{
+        font-size: 10px;
+    }
+}
