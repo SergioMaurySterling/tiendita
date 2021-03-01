@@ -46,7 +46,7 @@ export class ModalProductPage implements OnInit {
 
     this.imagesService.getTodoByProduct(this.id).subscribe(async res => {
       this.todosImg = res;
-      console.log(this.todosImg);
+      // console.log(this.todosImg);
       loading.dismiss();
     });
 
@@ -70,7 +70,6 @@ export class ModalProductPage implements OnInit {
 
   async addToCart(product) {
     const alert2 = await this.alertController.create({
-      header: 'Alert',
       message: 'Producto agregado al carrito.',
       buttons: ['OK']
     });

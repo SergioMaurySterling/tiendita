@@ -152,7 +152,6 @@ export class ModalPage implements OnInit {
         this.chatRooms();
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Se ha creado la nueva sala de chat con ' + this.receptorName,
           buttons: ['OK']
         });
@@ -161,7 +160,6 @@ export class ModalPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al generar la sala de chat.',
           buttons: ['OK']
         });

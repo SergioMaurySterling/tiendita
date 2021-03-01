@@ -130,7 +130,6 @@ export class HistorialPage implements OnInit {
       this.textoBuscar = event.detail.value;
     } else {
       const alert2 = await this.alertController2.create({
-        header: 'Alert',
         message: 'Selecciona el filtro de busqueda.',
         buttons: ['OK']
       });

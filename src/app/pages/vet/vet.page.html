@@ -1,4 +1,4 @@
-<app-header titulo="Vet & Care" color="secondary"></app-header>
+<app-header titulo="Vet & Care" color="primary"></app-header>
 
 <p class="ion-text-center pt-1 mx-2">
   <i>Reserva y adquiere servicios profesionales para tu peludo</i>
@@ -9,7 +9,7 @@
   <ion-slides mode="ios" pager="ios" scrollbar="false">
 
     <ion-slide button (click)="abrirModal(todo.id, todo.name)" *ngFor="let todo of todos">
-      <ion-button color="secondary" mode="ios" class="situation">
+      <ion-button color="primary" mode="ios" class="situation">
         <span><h1 class="my-0 font">{{todo.name}}</h1></span>
       </ion-button>
       <div class="bottom center">
@@ -20,7 +20,7 @@
   </ion-slides>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="rol=== 'emp' && user$ | async as user;">
-    <ion-fab-button color="secondary" (click)="newVet()">
+    <ion-fab-button color="primary" (click)="newVet()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

@@ -213,7 +213,6 @@ export class EdituserPage implements OnInit {
         }
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Datos actualizados correctamente.',
           buttons: ['OK']
         });
@@ -223,7 +222,6 @@ export class EdituserPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al almacenar los datos.',
           buttons: ['OK']
         });

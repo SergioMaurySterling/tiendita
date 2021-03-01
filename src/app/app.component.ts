@@ -99,7 +99,7 @@ export class AppComponent implements OnInit{
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.statusBar.backgroundColorByHexString('#fff');
+      this.statusBar.backgroundColorByHexString('#feca06');
 
       this.componentes = this.dataService.getMenuOpts();
 

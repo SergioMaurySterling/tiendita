@@ -18,7 +18,7 @@
   <ion-list *ngIf="rol === 'admin'">
     <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
-        <img src="assets/logo.svg" alt="">
+        <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
       <ion-label>
         <b>Emisor:</b> {{ chat.emisorName }} <br> <b>Receptor: </b>{{ chat.receptorName }}
@@ -29,7 +29,7 @@
   <ion-list *ngIf="rol !== 'admin' && selectTabs == 'creadas'">
     <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms2 | filtro: textoBuscar: 'receptorName'" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
-        <img src="assets/logo.svg" alt="">
+        <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
       <ion-label *ngIf="thisUid === chat.emisorUid" >
         <b>{{ chat.receptorName }}</b>
@@ -43,7 +43,7 @@
   <ion-list *ngIf="rol !== 'admin' && selectTabs == 'agregaron'">
     <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms3 | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
-        <img src="assets/logo.svg" alt="">
+        <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
       <ion-label *ngIf="thisUid === chat.emisorUid" >
         <b>{{ chat.receptorName }}</b>

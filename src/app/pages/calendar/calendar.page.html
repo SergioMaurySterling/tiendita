@@ -1,4 +1,4 @@
-<app-header titulo="Citas" color="secondary"></app-header>
+<app-header titulo="Citas" color="primary"></app-header>
 
 <ion-content>
 
@@ -27,7 +27,7 @@
         <ion-label>¿Todo el dia?</ion-label>
         <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
       </ion-item>
-      <ion-button fill="outline" color="secondary" expand="block" (click)="addEvent()">Crear Cita</ion-button>
+      <ion-button fill="outline" color="primary" expand="block" (click)="addEvent()">Crear Cita</ion-button>
  
     </ion-card-content>
   </ion-card>
@@ -35,13 +35,13 @@
   <ion-row>
     <!-- Change the displayed calendar mode -->
     <ion-col size="4">
-      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Mes</ion-button>
+      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'primary'" (click)="changeMode('month')">Mes</ion-button>
     </ion-col>
     <ion-col size="4">
-      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'" (click)="changeMode('week')">Semana</ion-button>
+      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'primary'" (click)="changeMode('week')">Semana</ion-button>
     </ion-col>
     <ion-col size="4">
-      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'" (click)="changeMode('day')">Dia</ion-button>
+      <ion-button mode="ios" expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'primary'" (click)="changeMode('day')">Dia</ion-button>
     </ion-col>
   </ion-row>
  

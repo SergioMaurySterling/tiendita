@@ -133,7 +133,6 @@ export class AddVetPage implements OnInit {
       });
 
       const alert = await this.alertController.create({
-        header: 'Alert',
         message: 'Datos almacenados correctamente.',
         buttons: ['OK']
       });
@@ -143,7 +142,6 @@ export class AddVetPage implements OnInit {
       {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al almacenar los datos.',
           buttons: ['OK']
         });

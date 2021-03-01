@@ -58,12 +58,17 @@ ion-slides{
     src : url('assets/fonts/GrandHotel-Regular.otf');
 }
 
+@font-face{
+    font-family: Poppins;
+    src : url('assets/fonts/Poppins-Regular.ttf');
+}
+
 *{
     font-family: Lato;
 }
 
 h1,h2,h3,h4,h5,h6{
-    font-family: GrandHotel;
+    font-family: Poppins;
 }
 
 h1 {

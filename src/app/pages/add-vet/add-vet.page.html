@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar color="{{color}}">
+  <ion-toolbar color="primary">
     <ion-button slot="end" fill="clear" (click)="closeModal()">
       <ion-icon style="color: #fff;" name="close"></ion-icon>
     </ion-button>
-    <ion-title class="ion-text-center"><h2 class="ix">Crear: {{ nombre }}</h2></ion-title>
+    <ion-title class="ion-text-center"><h2 class="ix">Crear</h2></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +23,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label mode="md" position="floating">precio del servicio</ion-label>
+          <ion-label mode="md" position="floating">Precio del servicio</ion-label>
           <ion-input type="number" [(ngModel)]="price" formControlName="price" name="price"></ion-input>
         </ion-item>
 

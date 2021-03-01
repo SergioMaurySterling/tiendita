@@ -25,8 +25,8 @@ export class VetDetailPage implements OnInit {
 
   @Input() color;
   @Input() id;
-  @Input() nombre;
   imgUrl: string;
+  name: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -46,6 +46,7 @@ export class VetDetailPage implements OnInit {
 
   todos;
   user;
+  user2;
   thisUserUid;
   userUid;
 
@@ -83,6 +84,7 @@ export class VetDetailPage implements OnInit {
       loading.dismiss();
     });
 
+    
     this.todoService.getTodo(this.id).subscribe(async res => {
       loading.dismiss();
       this.todos = res;
@@ -104,6 +106,15 @@ export class VetDetailPage implements OnInit {
         this.oneChat = this.chat.shift();
         loading.dismiss();
       });
+
+      // Nombre del aliado
+      this.userService.getTodo(this.receptorUid).subscribe(res => {
+        this.user2 = res;
+
+        this.name = this.user2.name ;
+        loading.dismiss();
+      });
+
     });
   }
 
@@ -128,7 +139,6 @@ export class VetDetailPage implements OnInit {
         this.chatRooms();
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Se ha creado la nueva sala de chat con ' + this.receptorName,
           buttons: ['OK']
         });
@@ -137,7 +147,6 @@ export class VetDetailPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al generar la sala de chat.',
           buttons: ['OK']
         });
@@ -253,7 +262,6 @@ export class VetDetailPage implements OnInit {
                       if (data === '1'){
                         if (price === 0) {
                           const alert2 = await this.alertController2.create({
-                            header: 'Alert',
                             message: 'Debe agregar productos al carrito.',
                             buttons: ['OK']
                           });
@@ -297,15 +305,14 @@ export class VetDetailPage implements OnInit {
                             }
                           });
                         }
-                        this.closeModal();
+                        // this.closeModal();
                       } else if (data === '2'){
                         const random = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                         VetDetailPage.saveTodo(uid, eUid, vName, null, random, 'CASH', 'CASH', null, 'APPROVED', price * 100, direction, pData);
           
-                        this.closeModal();
+                        // this.closeModal();
           
                         const alert2 = await this.alertController2.create({
-                          header: 'Alert',
                           message: 'Pago registrado con exito.',
                           buttons: ['OK']
                         });

@@ -13,7 +13,7 @@
 
 <ion-content class="ion-padding">
   <p class="ion-text-center">
-    <i>En esta página encontrarás tus propuestras creadas en la Tienda y Vet & Care.</i><br>
+    <i>En esta página encontrarás tus propuestas creadas en la Tienda y Vet & Care.</i><br>
     <i>Deslice cada item en el listado a la derecha o a la izquierda para desplegar las opciones.</i>
   </p>
 
@@ -25,7 +25,7 @@
       <ion-item>
           
         <ion-card>
-          <ion-card-header color="{{ todo2.color }}">
+          <ion-card-header color="primary">
             <ion-row>
               <ion-col size-md="6"><ion-card-title>Nombre: {{ todo2.name }}</ion-card-title></ion-col>
               <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo2.isActive" (ionChange)="change(todo2.isActive, todo2.id)"></ion-toggle> </ion-col>
@@ -40,10 +40,10 @@
                 <ion-label><i>Creado el: {{ todo2.date | date:'dd/MMM/yyyy h:mm:ss a' }}</i></ion-label>
               </ion-col>
               <ion-col size-md="6" *ngIf="todo2.typeservice === 'Servicio de agendamiento'">
-                <ion-button [routerLink]="['/calendar', todo2.id]" expand="block" color="secondary" shape="round">
+                <ion-button [routerLink]="['/calendar', todo2.id]" expand="block" color="primary" shape="round">
                   Crear Agenda
                 </ion-button>
-                <ion-button [routerLink]="['/editCupos', todo2.uid]" expand="block" color="secondary" shape="round">
+                <ion-button [routerLink]="['/editCupos', todo2.uid]" expand="block" color="primary" shape="round">
                   Modificar
                 </ion-button>
               </ion-col>
@@ -71,7 +71,7 @@
       <ion-item>
           
         <ion-card>
-          <ion-card-header color="dark">
+          <ion-card-header color="primary">
             <ion-row>
               <ion-col size-md="6"><ion-card-title>Producto: {{ todo.name }}</ion-card-title></ion-col>
               <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo.isActive" (ionChange)="change2(todo.isActive, todo.uid)"></ion-toggle> </ion-col>

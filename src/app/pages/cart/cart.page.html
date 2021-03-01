@@ -1,4 +1,4 @@
-<app-header titulo="Productos" color="dark"></app-header>
+<app-header titulo="Productos" color="primary"></app-header>
 
 <ion-content>
 
@@ -39,17 +39,17 @@
         <div id="card" class="ion-text-center">
           <ion-img src="{{ todo.imageUrl.filepath }}" class="your-img" *ngIf="todo.imageUrl"  (click)="abrirModal(todo.uid)"></ion-img>
 
-          <ion-button mode="md" class="situation" color="dark" (click)="addToCart(todo)">
-            Agregar
+          <ion-button mode="md" class="situation" color="primary" (click)="addToCart(todo)">
+            <b>Agregar</b>
           </ion-button>
 
-          <div class="divider" style="background: var(--ion-color-dark);"></div>
+          <div class="divider" style="background: var(--ion-color-primary);"></div>
     
           <div class="card-bt">
             <ion-label>
               <h1 class="px-1">{{ todo.name }}</h1>
               <b *ngIf="todo.delprice"  style="color: var(--ion-color-danger);" class="font"><del>${{ todo.delprice | number: '1.0-0' }} </del></b>
-              <b style="color: var(--ion-color-secondary);" class="font">${{ todo.price | number: '1.0-0' }}</b>
+              <b style="color: var(--ion-color-tertiary);" class="font">${{ todo.price | number: '1.0-0' }}</b>
             </ion-label>
           </div>
         </div>
@@ -59,14 +59,14 @@
   </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button class="cart" (click)="openCart()" color="dark" #cart>
+    <ion-fab-button class="cart" (click)="openCart()" color="primary" #cart>
       <div class="cart-length">{{ cartItemCount | async }}</div>
       <ion-icon name="cart" class="cart-icon"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="rol === 'emp'">
-    <ion-fab-button color="tertiary" (click)="abrirNewModal()">
+    <ion-fab-button color="primary" (click)="abrirNewModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

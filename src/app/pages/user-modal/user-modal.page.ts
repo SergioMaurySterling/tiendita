@@ -60,7 +60,7 @@ export class UserModalPage implements OnInit {
     });
     await loading.present();
 
-    this.color = 'dark';
+    this.color = 'primary';
 
     this.af.authState.subscribe( userL => {
       if (userL) {
@@ -138,7 +138,7 @@ export class UserModalPage implements OnInit {
         receptorUid: this.receptorUid,
         emisorName: this.emisorName,
         emisorUid: this.emisorUid,
-        chatColor: 'dark',
+        chatColor: 'primary',
         chatRoomDate: new Date().toString()
       };
 
@@ -150,7 +150,6 @@ export class UserModalPage implements OnInit {
         this.chatRooms();
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Se ha creado la nueva sala de chat con ' + this.receptorName,
           buttons: ['OK']
         });
@@ -159,7 +158,6 @@ export class UserModalPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al generar la sala de chat.',
           buttons: ['OK']
         });

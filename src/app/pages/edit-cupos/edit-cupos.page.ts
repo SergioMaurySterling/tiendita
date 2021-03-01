@@ -72,7 +72,7 @@ export class EditCuposPage implements OnInit {
           name: 'name1',
           type: 'number',
           min: 0,
-          placeholder: 'No. días en que duplicara la operación',
+          placeholder: 'Días en que duplicara la operación',
         },
       ],
       buttons: [

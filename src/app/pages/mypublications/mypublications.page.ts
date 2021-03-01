@@ -61,7 +61,6 @@ export class MypublicationsPage implements OnInit {
   async onRemove(item){
     this.vetCareService.removeTodo(item.id);
     const alert = await this.alertController.create({
-      header: 'Alert',
       message: 'Datos eliminados.',
       buttons: ['OK']
     });
@@ -71,7 +70,6 @@ export class MypublicationsPage implements OnInit {
   async onRemovePetshop(item){
     this.productsService.removeTodo(item.uid);
     const alert = await this.alertController.create({
-      header: 'Alert',
       message: 'Datos eliminados.',
       buttons: ['OK']
     });

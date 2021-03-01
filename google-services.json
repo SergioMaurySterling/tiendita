@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803233260404:android:52e9c35d8a749a63660221",
+        "mobilesdk_app_id": "1:803233260404:android:9b10d5b1aa690fe5660221",
         "android_client_info": {
-          "package_name": "com.neobox.petti"
+          "package_name": "com.petti.petti"
         }
       },
       "oauth_client": [
@@ -30,6 +30,14 @@
             {
               "client_id": "803233260404-l5og0ervhr111f1ad4b5mj0q9uuvu7j6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "803233260404-s2fqi2vbbttecfqk1tirotd25c799ha3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.petti.petti",
+                "app_store_id": "1508805541"
+              }
             }
           ]
         }

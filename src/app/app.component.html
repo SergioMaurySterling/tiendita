@@ -103,7 +103,7 @@
   <ion-content class="ion-padding" *ngIf="isActive === false && hasVerifiedEmail">
     <ion-card class="card" mode="ios">
       <ion-card-header color="primary">
-        <ion-card-title class="ion-text-center"><img src="assets/logo.svg" width="40px"> Su usuario no se encuentra activo</ion-card-title>
+        <ion-card-title class="ion-text-center"><img src="assets/logo-amarillo.svg" width="40px"> Su usuario no se encuentra activo</ion-card-title>
       </ion-card-header>
     
       <ion-card-content class="pt-3">
@@ -119,18 +119,18 @@
   <ion-content class="ion-padding" *ngIf="!hasVerifiedEmail" >
     <ion-card class="card" mode="ios">
       <ion-card-header color="primary">
-        <ion-card-title class="ion-text-center"><img src="assets/logo.svg" width="40px"> Verificacion por email</ion-card-title>
+        <ion-card-title class="ion-text-center"><img src="assets/logo-amarillo.svg" width="40px"> Verificación por email</ion-card-title>
       </ion-card-header>
     
       <ion-card-content class="pt-3">
         <div>
-          Por favor presione en el boton de <b>enviar email de verificacion</b> y luego verifica en tu correo electronico que llegue el email de activacion de tu cuenta (es posible que el correo llegue a la carpeta de spam), luego de confirmar el correo presione clic en el boton <b>recargar pagina</b>.
+          Por favor presione en el botón de <b>enviar email de verificación</b> y luego verifica en tu correo electrónico que llegue el email de activación de tu cuenta (es posible que el correo llegue a la carpeta de spam), luego de confirmar el correo presione clic en el botón <b>recargar página.</b>
           
           <div class="ion-text-center">
-            <ion-button mode="ios" class="pt-2" (click)="sendVerificationEmail()" color="secondary" shape="round">
-              Enviar Email de Verificacion
+            <ion-button mode="ios" class="pt-2" (click)="sendVerificationEmail()" color="primary" shape="round">
+              Enviar email de verificación
             </ion-button>
-            <ion-button mode="ios" class="pt-2" (click)="reload()" color="secondary" shape="round">
+            <ion-button mode="ios" class="pt-2" (click)="reload()" color="primary" shape="round">
               Recargar Pagina
             </ion-button>
           </div>

@@ -111,7 +111,6 @@ export class ModalAgendarPage implements OnInit {
                 this.closeModal();
 
                 const alert = await this.alertController.create({
-                  header: 'Alert',
                   message: 'Producto agregado.',
                   buttons: ['OK']
                 });

@@ -93,7 +93,6 @@ export class PetdataPage implements OnInit {
       }
 
       const alert = await this.alertController.create({
-        header: 'Alert',
         message: 'Datos actualizados correctamente.',
         buttons: ['OK']
       });

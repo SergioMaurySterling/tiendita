@@ -1,25 +1,25 @@
 <ion-header>
-  <ion-toolbar color="{{color}}">
+  <ion-toolbar color="primary">
     <ion-button slot="end" fill="clear" (click)="closeModal()">
       <ion-icon style="color: #fff;" name="close"></ion-icon>
     </ion-button>
-    <ion-title class="ion-text-center"><h2 class="ix">{{nombre}}</h2></ion-title>
+    <ion-title class="ion-text-center"><h2>{{name}}</h2></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding ion-text-center">
 
   <ion-img *ngIf="imgUrl" src="{{imgUrl}}" width="150px" class="img"></ion-img>
-  <ion-img *ngIf="!imgUrl"  src="assets/logo-azul.svg" width="150px" class="img"></ion-img> <br>
+  <ion-img *ngIf="!imgUrl"  src="assets/logo-amarillo.svg" width="150px" class="img"></ion-img> <br>
 
-  <ion-button mode="md" class="bt" color="{{color}}" shape="round" *ngIf="userUid !== thisUserUid" (click)="AddChatRoom()">
+  <ion-button mode="md" class="bt" color="primary" shape="round" *ngIf="userUid !== thisUserUid" (click)="AddChatRoom()">
     <ion-icon name="chatbubble-ellipses"></ion-icon>
   </ion-button> <br>
 
-  <ion-button *ngIf="typeservice === 'Servicio de agendamiento'" (click)="Agendar(receptorUid, receptorName, id)" color="secondary" expand="block" shape="round">
+  <ion-button *ngIf="typeservice === 'Servicio de agendamiento'" (click)="Agendar(receptorUid, receptorName, id)" color="primary" expand="block" shape="round">
     Agendar cita
   </ion-button>
-  <ion-button *ngIf="typeservice === 'Servicio por mes'" (click)="checkout(price, receptorUid, nombre, id)" color="secondary" expand="block" shape="round">
+  <ion-button *ngIf="typeservice === 'Servicio por mes'" (click)="checkout(price, receptorUid, name, id)" color="primary" expand="block" shape="round">
     Pagar mes
   </ion-button>
 

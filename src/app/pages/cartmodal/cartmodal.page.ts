@@ -190,7 +190,6 @@ export class CartmodalPage implements OnInit {
   async checkout(){
     if (this.getTotal() === 0) {
       const alert2 = await this.alertController2.create({
-        header: 'Alert',
         message: 'Debe agregar productos al carrito.',
         buttons: ['OK']
       });
@@ -317,7 +316,6 @@ export class CartmodalPage implements OnInit {
               this.close();
 
               const alert2 = await this.alertController2.create({
-                header: 'Alert',
                 message: 'Pago registrado con exito.',
                 buttons: ['OK']
               });
@@ -474,7 +472,7 @@ export class CartmodalPage implements OnInit {
   changeDir(){
     this.Emplat = this.latitude;
     this.Emplng = this.longitude;
-    this.empDelivery = this.emp.delivery * this.haversine_distance();
+    this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
     console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng + ' ' + this.direction);
     this.hide = false;
   }

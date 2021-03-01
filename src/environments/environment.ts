@@ -1,11 +1,8 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: true,
   wompi: {
-    publicKey: 'pub_test_x3NUqL8JxviEGri4br07iSScOyYfcO6z'
+    // publicKey: 'pub_test_x3NUqL8JxviEGri4br07iSScOyYfcO6z'
+    publicKey: 'pub_prod_zZdA8JFGc87tFQ0rfuD6fbDyx4ZOQSut'
   },
   ePayco: {
     publicKey: '9a23fca7acf8f8f2a9e548d84a7eda3d'

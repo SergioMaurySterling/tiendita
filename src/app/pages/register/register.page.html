@@ -44,8 +44,12 @@
                 <ion-label mode="md" position="floating">Contraseña</ion-label>
                 <ion-input type="password" [(ngModel)]="password" formControlName="password" name="password"></ion-input>
             </ion-item>
-            
-            <br>
+
+            <div class="py-2">
+                <ion-checkbox [(ngModel)]="terminos" formControlName="terminos" name="terminos"></ion-checkbox>
+                <ion-label mode="md" class="ter" (click)="terminosClick()"><b style="color: var(--ion-color-primary);"> Términos y condiciones</b></ion-label>
+            </div>
+
             <ion-button mode="ios" expand="block" [disabled]="!directionForm.valid" (click)="onSubmitRegister()">
                 <b>Registrar</b>
             </ion-button>

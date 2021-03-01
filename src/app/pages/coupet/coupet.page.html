@@ -1,4 +1,4 @@
-<app-header titulo="Coupet" color="danger"></app-header>
+<app-header titulo="Coupet" color="primary"></app-header>
 
 <ion-content>
 
@@ -15,7 +15,7 @@
         <div id="card" class="ion-text-center" (click)="abrirModal(todo.id)">
           <ion-img src="{{ todo.imageUrl }}" class="your-img"></ion-img>
 
-          <div class="divider" style="background: var(--ion-color-danger);"></div>
+          <div class="divider" style="background: var(--ion-color-primary);"></div>
 
           <div class="card-bt">
             <ion-label><h1>{{ todo.petName }}</h1></ion-label>
@@ -27,7 +27,7 @@
   </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="danger" (click)="abrirNewModal()">
+    <ion-fab-button color="primary" (click)="abrirNewModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

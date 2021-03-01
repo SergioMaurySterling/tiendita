@@ -116,7 +116,6 @@ export class EditpublicationPage implements OnInit {
         }
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Datos almacenados correctamente.',
           buttons: ['OK']
         });
@@ -126,7 +125,6 @@ export class EditpublicationPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al almacenar los datos.',
           buttons: ['OK']
         });

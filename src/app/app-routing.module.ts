@@ -186,6 +186,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/analytics/analytics.module').then( m => m.AnalyticsPageModule),
     canActivate : [AuthGuard]
   },
+  {
+    path: 'terminos',
+    loadChildren: () => import('./pages/terminos/terminos.module').then( m => m.TerminosPageModule)
+  },
 ];
 
 @NgModule({

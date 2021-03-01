@@ -2,7 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { TerminosPage } from '../terminos/terminos.page';
 
 declare var google;
 
@@ -40,12 +41,14 @@ export class RegisterempPage implements OnInit {
   isActive: boolean;
   rate: number;
   delivery: number;
+  terminos = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private alertController: AlertController,
     public router: Router,
+    public modalCtrl: ModalController,
     private zone: NgZone,
   ) {
     this.validatorsForms();
@@ -71,6 +74,7 @@ export class RegisterempPage implements OnInit {
       phone: ['', Validators.required],
       autocomplete: ['', Validators.required],
       direction: ['', Validators.required],
+      terminos: [''],
       delivery: [''],
       description: [''],
       horario: [''],
@@ -78,8 +82,7 @@ export class RegisterempPage implements OnInit {
     });
   }
 
-  onSubmitRegister() {
-
+  async onSubmitRegister() {
     if (this.delivery === undefined){
       this.delivery = null;
     }
@@ -93,37 +96,50 @@ export class RegisterempPage implements OnInit {
       this.website = '';
     }
 
-    this.auth.registerEmp(
-      this.imageUrl,
-      this.email,
-      this.password,
-      this.name,
-      this.lastname,
-      this.nit,
-      this.phone,
-      this.geo,
-      this.latitude,
-      this.longitude,
-      this.direction,
-      this.delivery,
-      this.description,
-      this.horario,
-      this.website,
-      this.rol = 'emp',
-      this.isActive = false,
-      this.rate = 0,
-      this.date = new Date().toString()
-      ).then( auth => {
-      this.router.navigate(['/']);
-    }).catch(async err => {
-      console.log(err);
+    if (this.terminos === true) {
+      this.auth.registerEmp(
+        this.imageUrl,
+        this.email,
+        this.password,
+        this.name,
+        this.lastname,
+        this.nit,
+        this.phone,
+        this.geo,
+        this.latitude,
+        this.longitude,
+        this.direction,
+        this.delivery,
+        this.description,
+        this.horario,
+        this.website,
+        this.rol = 'emp',
+        this.isActive = false,
+        this.rate = 0,
+        this.date = new Date().toString()
+        ).then( async auth => {
+          const alert = await this.alertController.create({
+            message: 'Datos almacenados correctamente.',
+            buttons: ['OK']
+          });
+          await alert.present();
+        this.router.navigate(['/']);
+      }).catch(async err => {
+        console.log(err);
+        const alert = await this.alertController.create({
+          message: 'Este usuario ya se encuentra registrado',
+          buttons: ['OK']
+        });
+        await alert.present();
+      });
+    } else{
       const alert = await this.alertController.create({
-        header: 'Alert',
-        message: 'Datos almacenados correctamente.',
+        message: 'No ha aceptado los terminos y condiciones.',
         buttons: ['OK']
       });
       await alert.present();
-    });
+    }
+
   }
 
   chooseItem(item: any) {
@@ -172,6 +188,13 @@ export class RegisterempPage implements OnInit {
   ClearAutocomplete(){
     this.autocompleteItems = [];
     this.autocomplete.input = '';
+  }
+
+  terminosClick(){
+    this.modalCtrl.create({
+      component: TerminosPage,
+      cssClass: 'my-custom-modal-css'
+    }).then( (modalCtrl) => modalCtrl.present());
   }
 
 }

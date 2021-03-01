@@ -2,7 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { TerminosPage } from '../terminos/terminos.page';
 
 declare var google;
 
@@ -28,6 +29,7 @@ export class RegisterPage implements OnInit {
   imageUrl = '';
   email: string;
   password: string;
+  terminos = false;
   name: string;
   lastname: string;
   phone: string;
@@ -42,6 +44,7 @@ export class RegisterPage implements OnInit {
     private auth: AuthService,
     private alertController: AlertController,
     public router: Router,
+    public modalCtrl: ModalController,
     private zone: NgZone,
   ) {
     this.validatorsForms();
@@ -66,36 +69,50 @@ export class RegisterPage implements OnInit {
       phone: ['', Validators.required],
       autocomplete: ['', Validators.required],
       direction: ['', Validators.required],
+      terminos: ['', Validators.required],
     });
   }
 
-  onSubmitRegister() {
-    this.auth.register(
-      this.imageUrl,
-      this.email,
-      this.password,
-      this.name,
-      this.lastname,
-      this.phone,
-      this.geo,
-      this.latitude,
-      this.longitude,
-      this.direction,
-      this.rol = 'user',
-      this.isPetData = false,
-      this.isActive = true,
-      this.date = new Date().toString()
-      ).then( auth => {
-      this.router.navigate(['/']);
-    }).catch(async err => {
-      console.log(err);
+  async onSubmitRegister() {
+    if (this.terminos === true) {
+      this.auth.register(
+        this.imageUrl,
+        this.email,
+        this.password,
+        this.name,
+        this.lastname,
+        this.phone,
+        this.geo,
+        this.latitude,
+        this.longitude,
+        this.direction,
+        this.rol = 'user',
+        this.isPetData = false,
+        this.isActive = true,
+        this.date = new Date().toString()
+        ).then( async auth => {
+          const alert = await this.alertController.create({
+            message: 'Usuario agregado exitosamente.',
+            buttons: ['OK']
+          });
+          await alert.present();
+        this.router.navigate(['/']);
+      }).catch(async err => {
+        console.log(err);
+        const alert = await this.alertController.create({
+          message: 'Este usuario ya se encuentra registrado.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      });
+    } else {
       const alert = await this.alertController.create({
-        header: 'Alert',
-        message: 'Este usuario ya se encuentra registrado.',
+        message: 'No ha aceptado los terminos y condiciones.',
         buttons: ['OK']
       });
       await alert.present();
-    });
+    }
+    
   }
 
   chooseItem(item: any) {
@@ -144,6 +161,13 @@ export class RegisterPage implements OnInit {
   ClearAutocomplete(){
     this.autocompleteItems = [];
     this.autocomplete.input = '';
+  }
+
+  terminosClick(){
+    this.modalCtrl.create({
+      component: TerminosPage,
+      cssClass: 'my-custom-modal-css'
+    }).then( (modalCtrl) => modalCtrl.present());
   }
 
 }

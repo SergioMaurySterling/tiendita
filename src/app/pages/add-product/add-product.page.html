@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="{{color}}">
+  <ion-toolbar color="primary">
     <ion-button slot="end" fill="clear" (click)="closeModal()">
       <ion-icon style="color: #fff;" name="close"></ion-icon>
     </ion-button>
@@ -10,7 +10,7 @@
 <ion-content class="ion-padding">
 
   <div class="ion-text-center">
-    <i>La primera imagen que agregue sera la de portada del producto</i>
+    <i>La primera imagen que agregue será la de portada del producto</i>
   </div>
 
   <form [formGroup]="directionForm">
@@ -56,7 +56,7 @@
         </ion-card-header>
     
         <ion-card-content>
-          <ion-button expand="full" color="dark" shape="round" mode="ios" (click)="isUploading = isUploaded = false">Subir otra</ion-button>
+          <ion-button expand="full" color="primary" shape="round" mode="ios" (click)="isUploading = isUploaded = false">Subir otra</ion-button>
           File Size: {{ fileSize | fileSizePipe }}
           <div *ngIf="UploadedFileURL | async as url">
             <img [src]="url" />

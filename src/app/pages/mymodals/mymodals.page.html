@@ -2,7 +2,7 @@
 
 <ion-content class="ion-padding">
   <p class="ion-text-center">
-    <i>En esta página encontrarás tus propuestras creadas en coupet, adopción y mascotas perdidas.</i><br>
+    <i>En esta página encontrarás tus propuestas creadas en coupet, adopción y mascotas perdidas.</i><br>
     <i>Deslice cada item en el listado a la derecha o a la izquierda para desplegar las opciones.</i>
   </p>
 
@@ -14,9 +14,14 @@
       <ion-item>
 
         <ion-card>
-          <ion-card-header color="{{ todo.color }}">
+          <ion-card-header color="primary">
             <ion-row>
-              <ion-col size-md="6"><ion-card-title>Mascota: {{ todo.petName }}</ion-card-title></ion-col>
+              <ion-col size-md="6">
+                <ion-card-title>Mascota: {{ todo.petName }}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo.color === 'danger'">Modulo: Coupet</ion-card-subtitle>
+                <ion-card-subtitle *ngIf="todo.color === 'secondary'">Modulo: Adopción</ion-card-subtitle>
+                <ion-card-subtitle *ngIf="todo.color === 'primary'">Modulo: Mascotas perdidas</ion-card-subtitle>
+              </ion-col>
               <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo.isActive" (ionChange)="change(todo.isActive, todo.id)"></ion-toggle> </ion-col>
             </ion-row>
             
@@ -47,9 +52,14 @@
       <ion-item>
           
         <ion-card>
-          <ion-card-header color="{{ todo2.color }}">
+          <ion-card-header color="primary">
             <ion-row>
-              <ion-col size-md="6"><ion-card-title>Mascota: {{ todo2.petName }}</ion-card-title></ion-col>
+              <ion-col size-md="6">
+                <ion-card-title>Mascota: {{ todo2.petName }}</ion-card-title>
+                <ion-card-subtitle *ngIf="todo2.color === 'danger'">Modulo: Coupet</ion-card-subtitle>
+                <ion-card-subtitle *ngIf="todo2.color === 'secondary'">Modulo: Adopción</ion-card-subtitle>
+                <ion-card-subtitle *ngIf="todo2.color === 'primary'">Modulo: Mascotas perdidas</ion-card-subtitle>
+              </ion-col>
               <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo2.isActive" (ionChange)="change(todo2.isActive, todo2.id)"></ion-toggle> </ion-col>
             </ion-row>
           </ion-card-header>

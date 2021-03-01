@@ -104,7 +104,6 @@ export class EditCalendarPage implements OnInit {
         loading.dismiss();
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Datos almacenados correctamente.',
           buttons: ['OK']
         });
@@ -115,7 +114,6 @@ export class EditCalendarPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          header: 'Alert',
           message: 'Error al almacenar los datos.',
           buttons: ['OK']
         });
@@ -123,7 +121,6 @@ export class EditCalendarPage implements OnInit {
       });
     }else{
       const alert = await this.alertController.create({
-        header: 'Alert',
         message: 'Operación invalida.',
         buttons: ['OK']
       });

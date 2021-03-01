@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar color="{{color}}">
+  <ion-toolbar color="primary">
     <ion-button slot="end" fill="clear" (click)="closeModal()">
       <ion-icon style="color: #fff;" name="close"></ion-icon>
     </ion-button>
-    <ion-title class="ion-text-center"><h2 class="ix">{{ nombre }}</h2></ion-title>
+    <ion-title class="ion-text-center"><h2>{{ nombre }}</h2></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,8 +11,8 @@
 
   <div id="card" class="ion-text-center">
     <ion-img src="{{imageUrl}}" class="your-img"></ion-img>
-    <ion-item-divider mode=ios color="{{color}}"></ion-item-divider>
-    <ion-button mode="ios" class="porcentaje ion-text-center" color="{{color}}"><ion-icon name="heart"></ion-icon><b> {{heartPorcent | number: '1.0-0' }} %</b></ion-button>
+    <ion-item-divider mode=ios color="primary"></ion-item-divider>
+    <ion-button mode="ios" class="porcentaje ion-text-center" color="primary"><ion-icon name="heart"></ion-icon><b> {{heartPorcent | number: '1.0-0' }} %</b></ion-button>
     <div class="card-bt">
         <h2>{{petName}}, {{age}}</h2>
         <p>
@@ -21,13 +21,13 @@
         <P>
           {{description}}
         </P>
-        <ion-button mode="md" class="bt" color="{{color}}" shape="round" (click)="likes()">
+        <ion-button mode="md" class="bt" color="primary" shape="round" (click)="likes()">
           <ion-icon [name]="likeType"></ion-icon>
         </ion-button>
-        <ion-button mode="md" class="bt" color="{{color}}" shape="round" *ngIf="userUid !== thisUserUid" (click)="AddChatRoom();">
+        <ion-button mode="md" class="bt" color="primary" shape="round" *ngIf="userUid !== thisUserUid" (click)="AddChatRoom();">
           <ion-icon name="chatbubble-ellipses"></ion-icon>
         </ion-button>
-        <ion-button mode="md" class="bt" color="{{color}}" shape="round" (click)="dislike()">
+        <ion-button mode="md" class="bt" color="primary" shape="round" (click)="dislike()">
           <ion-icon [name]="dislikeType"></ion-icon>
         </ion-button>
     </div>

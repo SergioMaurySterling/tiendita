@@ -78,6 +78,18 @@ export class UsersService {
     }));
   }
 
+  getUsersByEmail(name: string) {
+    return this.db.collection('users', ref => ref
+    .where('email', '==', name)
+    ).snapshotChanges().pipe( map( rooms => {
+      return rooms.map( a => {
+        const data = a.payload.doc.data() as usersM;
+        data.uid = a.payload.doc.id;
+        return data;
+      });
+    }));
+  }
+
   getUsersByRolIsActive(name: string, status: boolean) {
     return this.db.collection('users', ref => ref
     .where('rol', '==', name)
@@ -86,6 +98,18 @@ export class UsersService {
     ).snapshotChanges().pipe( map( rooms => {
       return rooms.map( a => {
         const data = a.payload.doc.data() as usersM;
+        data.uid = a.payload.doc.id;
+        return data;
+      });
+    }));
+  }
+
+  getUsersEIsActive(name: string, status: boolean) {
+    return this.db.collection('users', ref => ref
+    .where('isActive', '==', status)
+    ).snapshotChanges().pipe( map( rooms => {
+      return rooms.map( a => {
+        const data = a.payload.doc.data() as UsersE;
         data.uid = a.payload.doc.id;
         return data;
       });

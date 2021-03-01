@@ -1,4 +1,4 @@
-<app-header titulo="Editar" color="{{todo.color}}"></app-header>
+<app-header titulo="Editar" color="primary"></app-header>
 
 <ion-content>
 
@@ -20,7 +20,7 @@
         </ion-item>
 
         <ion-item *ngIf="todo.color === 'primary'" >
-            <ion-label mode="md" position="floating">Situacion de la mascota</ion-label>
+            <ion-label mode="md" position="floating">Situación de la mascota</ion-label>
             <ion-select value="{{todo.situation}}" interface="popover" [(ngModel)]="situation" formControlName="situation" name="situation">
               <ion-select-option value="Se busca">Se busca</ion-select-option>
               <ion-select-option value="Busco a su dueño">Busco a su dueño</ion-select-option>

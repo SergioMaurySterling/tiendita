@@ -51,6 +51,7 @@ export class VetModalPage implements OnInit {
   rating;
   empName = [];
   empRate = [];
+  isActive = [];
   empDirection = [];
   empImageUrl = [];
 
@@ -74,6 +75,7 @@ export class VetModalPage implements OnInit {
         this.userService.getTodo2(element.asociadoID).subscribe(res => {
           this.empName.push(res.name);
           this.empRate.push(res.rate);
+          this.isActive.push(res.isActive);
           this.empDirection.push(res.direction);
           this.empImageUrl.push(res.imageUrl);
         });
@@ -217,12 +219,12 @@ export class VetModalPage implements OnInit {
                             }
                           });
                         }
-                        this.closeModal();
+                        // this.closeModal();
                       } else if (data === '2'){
                         const random = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                         VetModalPage.saveTodo(uid, eUid, vName, null, random, 'CASH', 'CASH', null, 'APPROVED', price * 100, direction, pData);
           
-                        this.closeModal();
+                        // this.closeModal();
           
                         const alert2 = await this.alertController2.create({
                           header: 'Alert',

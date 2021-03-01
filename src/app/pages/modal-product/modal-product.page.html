@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="{{color}}">
+  <ion-toolbar color="primary">
     <ion-button slot="end" fill="clear" (click)="closeModal()">
       <ion-icon style="color: #fff;" name="close"></ion-icon>
     </ion-button>
@@ -15,12 +15,12 @@
         <img src="{{item.filepath}}" class="imgs" height="100px">
       </ion-slide>
     </ion-slides>
-    <ion-item-divider mode=ios color="{{color}}"></ion-item-divider>
+    <ion-item-divider mode=ios color="primary"></ion-item-divider>
     
-    <ion-button mode="ios" class="porcentaje ion-text-center" color="{{color}}">
+    <ion-button mode="ios" class="porcentaje ion-text-center" color="primary">
       <ion-icon name="cash-outline"></ion-icon>
       <b class="ml-2"> ${{ price | number: '1.0-0' }} <br> 
-        <del *ngIf="delprice" >${{ delprice | number: '1.0-0' }}</del>
+        <del *ngIf="delprice" style="color: var(--ion-color-danger)">${{ delprice | number: '1.0-0' }}</del>
       </b>
     </ion-button>
 
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <ion-button mode="ios" class="situation" color="dark" (click)="addToCart(todos)">
+  <ion-button mode="ios" class="situation" color="primary" (click)="addToCart(todos)">
     Agregar
   </ion-button>
 

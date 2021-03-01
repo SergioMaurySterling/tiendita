@@ -81,7 +81,6 @@ export class RatePage implements OnInit {
     }
 
     const alert2 = await this.alertController.create({
-      header: 'Alert',
       message: 'Valoracion calificada.',
       buttons: ['OK']
     });
