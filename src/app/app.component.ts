@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Platform, ModalController, LoadingController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -14,6 +14,8 @@ import { UsersService } from './services/users.service';
 import { Router } from '@angular/router';
 import { PetdataPage } from './pages/petdata/petdata.page';
 import { firestore, auth } from 'firebase';
+
+import * as firebase from 'firebase/app';
 
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 
@@ -31,6 +33,8 @@ export class AppComponent implements OnInit{
 
   public user$: Observable<usersM> = this.afAuth.user;
   isPetData: any;
+  userAnalitics: usersM;
+  nameAnalitics: string;
 
   constructor(
     private platform: Platform,
@@ -54,6 +58,30 @@ export class AppComponent implements OnInit{
   rol;
   imageUrl;
   isActive;
+
+  async ngAfterViewInit(){
+    const loading = await this.loadingController.create({
+      message: 'Cargando...'
+    });
+    await loading.present();
+
+    this.afAuth.authState.subscribe( userL => {
+      const uid = userL.uid;
+      this.userService.getTodo(uid).subscribe(res => {
+        loading.dismiss();
+        this.userAnalitics = res;
+
+        this.nameAnalitics = res.name + res.lastname;
+      });
+
+      // Google Analytics
+      firebase.analytics().logEvent('eventname', {
+        'firsttimeuser': true,
+        'username': this.nameAnalitics
+      });
+    });
+    
+  }
 
   async initializeApp() {
 
