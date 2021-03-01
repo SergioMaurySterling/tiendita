@@ -56,6 +56,23 @@ export class CartService {
     // console.log(this.cartItemCount);
   }
 
+  static addProduct2(product){
+    let added = false;
+    for (const p of this.cart) {
+      if (p.uid === product.uid) {
+        p.amount += 1;
+        added = true;
+        break;
+      }
+    }
+    if (!added) {
+      this.cart.push(product);
+    }
+    this.cartItemCount.next(this.cartItemCount.value + 1);
+    console.log(this.cart);
+    // console.log(this.cartItemCount);
+  }
+
   static decreaseProduct(product){
     for (const [index, p] of this.cart.entries()) {
       if (p.uid === product.uid) {

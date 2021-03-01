@@ -59,28 +59,7 @@ export class AppComponent implements OnInit{
   imageUrl;
   isActive;
 
-  async ngAfterViewInit(){
-    const loading = await this.loadingController.create({
-      message: 'Cargando...'
-    });
-    await loading.present();
-
-    this.afAuth.authState.subscribe( userL => {
-      const uid = userL.uid;
-      this.userService.getTodo(uid).subscribe(res => {
-        loading.dismiss();
-        this.userAnalitics = res;
-
-        this.nameAnalitics = res.name + res.lastname;
-      });
-
-      // Google Analytics
-      firebase.analytics().logEvent('eventname', {
-        'firsttimeuser': true,
-        'username': this.nameAnalitics
-      });
-    });
-    
+  async ngAfterViewInit(){    
   }
 
   async initializeApp() {
@@ -99,6 +78,13 @@ export class AppComponent implements OnInit{
 
           this.isActive = this.user.isActive;
           this.rol = this.user.rol;
+          this.nameAnalitics = res.name +' '+ res.lastname;
+
+          // Google Analytics
+          firebase.analytics().logEvent('eventname', {
+            'firsttimeuser': true,
+            'username': this.nameAnalitics
+          });
 
           if (this.rol === 'user') {
             this.isPetData = this.user.isPetData;
@@ -120,6 +106,12 @@ export class AppComponent implements OnInit{
       } else {
         loading.dismiss();
         console.log('not loging');
+
+        // Google Analytics
+        firebase.analytics().logEvent('eventname', {
+          'firsttimeuser': true,
+          'username': 'No Conectado'
+        });
       }
     });
 

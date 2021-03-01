@@ -154,7 +154,7 @@ export class CartmodalPage implements OnInit {
   }
 
   increaseCartItem(product) {
-    CartService.addProduct(product);
+    CartService.addProduct2(product);
   }
 
   removeCartItem(product){
