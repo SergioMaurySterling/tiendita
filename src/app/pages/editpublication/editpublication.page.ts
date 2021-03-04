@@ -121,7 +121,7 @@ export class EditpublicationPage implements OnInit {
         });
         await alert.present();
 
-        this.router.navigate(['/mymodals']);
+        this.router.navigate(['/mypublications']);
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({

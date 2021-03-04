@@ -201,7 +201,7 @@ export class VetDetailPage implements OnInit {
       }
     }).then( (modalCtrl3) => modalCtrl3.present());
 
-    this.closeModal();
+    // this.closeModal();
   }
 
   async checkout(price, eUid, vName, uid){

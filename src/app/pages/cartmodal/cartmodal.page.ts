@@ -27,6 +27,8 @@ export class CartmodalPage implements OnInit {
 
   @Input() empId;
 
+  dirAct;
+
   autocomplete;
   autocompleteItems: any[];
   GoogleAutocomplete: any;
@@ -85,8 +87,8 @@ export class CartmodalPage implements OnInit {
 
   validatorsForms() {
     this.directionForm = this.formBuilder.group({
-      autocomplete: [''],
-      direction: [''],
+      autocomplete: ['', Validators.required],
+      direction: ['', Validators.required],
     });
   }
 
@@ -154,7 +156,7 @@ export class CartmodalPage implements OnInit {
   }
 
   increaseCartItem(product) {
-    CartService.addProduct2(product);
+    CartService.addProduct(product);
   }
 
   removeCartItem(product){
@@ -470,6 +472,9 @@ export class CartmodalPage implements OnInit {
   }
 
   changeDir(){
+    if (this.dirAct === this.direction) {
+      this.direction = this.autocomplete.query
+    }
     this.Emplat = this.latitude;
     this.Emplng = this.longitude;
     this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
@@ -479,6 +484,7 @@ export class CartmodalPage implements OnInit {
 
   dir(){
     this.hide = true;
+    this.dirAct = this.direction;
   }
   cancelDir(){
     this.hide = false;

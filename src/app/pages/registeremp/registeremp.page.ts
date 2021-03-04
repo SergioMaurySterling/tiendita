@@ -83,20 +83,20 @@ export class RegisterempPage implements OnInit {
   }
 
   async onSubmitRegister() {
-    if (this.delivery === undefined){
-      this.delivery = null;
-    }
-    if (this.description === undefined){
-      this.description = '';
-    }
-    if (this.horario === undefined){
-      this.horario = '';
-    }
-    if (this.website === undefined){
-      this.website = '';
-    }
 
     if (this.terminos === true) {
+      if (this.delivery === undefined){
+        this.delivery = null;
+      }
+      if (this.description === undefined){
+        this.description = '';
+      }
+      if (this.horario === undefined){
+        this.horario = '';
+      }
+      if (this.website === undefined){
+        this.website = '';
+      }
       this.auth.registerEmp(
         this.imageUrl,
         this.email,
@@ -115,7 +115,7 @@ export class RegisterempPage implements OnInit {
         this.website,
         this.rol = 'emp',
         this.isActive = false,
-        this.rate = 0,
+        this.rate = 5,
         this.date = new Date().toString()
         ).then( async auth => {
           const alert = await this.alertController.create({

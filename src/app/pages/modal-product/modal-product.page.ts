@@ -3,7 +3,7 @@ import { ModalController, LoadingController, AlertController } from '@ionic/angu
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { CartService } from 'src/app/services/cart.service';
+import { CartService, Product } from 'src/app/services/cart.service';
 import { ImagesService } from '../../services/images.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ModalProductPage implements OnInit {
 
   @Input() color;
   @Input() nombre;
-  @Input() id;
+  @Input() product;
 
   constructor(
     private modalCtrl: ModalController,
@@ -28,6 +28,7 @@ export class ModalProductPage implements OnInit {
   ) { }
 
   todos;
+  cart;
   todosImg;
   user;
 
@@ -39,18 +40,19 @@ export class ModalProductPage implements OnInit {
   delprice;
 
   async ngOnInit() {
+    this.cart = CartService.getCart();
     const loading = await this.loadingController.create({
       message: 'Cargando...'
     });
     await loading.present();
 
-    this.imagesService.getTodoByProduct(this.id).subscribe(async res => {
+    this.imagesService.getTodoByProduct(this.product.uid).subscribe(async res => {
       this.todosImg = res;
       // console.log(this.todosImg);
       loading.dismiss();
     });
 
-    this.todoService.getTodo(this.id).subscribe(async res => {
+    this.todoService.getTodo(this.product.uid).subscribe(async res => {
       loading.dismiss();
       this.todos = res;
 
@@ -68,13 +70,13 @@ export class ModalProductPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  async addToCart(product) {
+  async addToCart() {
     const alert2 = await this.alertController.create({
       message: 'Producto agregado al carrito.',
       buttons: ['OK']
     });
     await alert2.present();
-    CartService.addProduct(product);
+    CartService.addProduct(this.product);
   }
 
 }

@@ -98,7 +98,7 @@ export class VetModalPage implements OnInit {
       }
     }).then( (modalCtrl3) => modalCtrl3.present());
 
-    this.closeModal();
+    // this.closeModal();
   }
 
   closeModal() {

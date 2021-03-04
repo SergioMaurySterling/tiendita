@@ -143,7 +143,7 @@ export class CartPage implements OnInit {
         component: ModalProductPage,
         cssClass: 'my-custom-modal-css',
         componentProps: {
-          id: Mid,
+          product: Mid,
           color: 'dark',
           nombre: 'Producto'
         }

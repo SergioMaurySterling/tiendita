@@ -16,7 +16,7 @@
   <ion-searchbar placeholder="Ingrese la busqueda" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
 
   <ion-list *ngIf="rol === 'admin'">
-    <ion-item color="{{chat.chatColor}}" *ngFor = "let chat of chatRooms | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
+    <ion-item *ngFor = "let chat of chatRooms | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
         <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
@@ -27,29 +27,41 @@
   </ion-list>
 
   <ion-list *ngIf="rol !== 'admin' && selectTabs == 'creadas'">
-    <ion-item color="{{chat.chatColor}}" *ngFor="let chat of chatRooms2 | filtro: textoBuscar: 'receptorName'; let i = index" [attr.data-index]="i" (click)="openChat(chat)" button>
+    <ion-item *ngFor="let chat of chatRooms2 | filtro: textoBuscar: 'receptorName'; let i = index" [attr.data-index]="i" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
         <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
       <ion-label *ngIf="thisUid === chat.emisorUid" >
-        <b>{{ userReceptorName2[i] }}</b>
+        <b>{{ userReceptorName2[i] }}</b> <br>
+        <p *ngIf="chat.chatColor === 'danger'">Modulo: Coupet</p>
+        <p *ngIf="chat.chatColor === 'primary'">Modulo: Perdidos</p>
+        <p *ngIf="chat.chatColor === 'success'">Modulo: Adopción</p>
       </ion-label>
       <ion-label *ngIf="thisUid === chat.receptorUid" >
-        <b>{{ userEmisorName2[i] }}</b>
+        <b>{{ userEmisorName2[i] }}</b> <br>
+        <p *ngIf="chat.chatColor === 'danger'">Modulo: Coupet</p>
+        <p *ngIf="chat.chatColor === 'primary'">Modulo: Perdidos</p>
+        <p *ngIf="chat.chatColor === 'success'">Modulo: Adopción</p>
       </ion-label>
     </ion-item>
   </ion-list>
 
   <ion-list *ngIf="rol !== 'admin' && selectTabs == 'agregaron'">
-    <ion-item color="{{chat.chatColor}}" *ngFor="let chat of chatRooms3 | filtro: textoBuscar: 'emisorName'; let i = index" [attr.data-index]="i" (click)="openChat(chat)" button>
+    <ion-item *ngFor="let chat of chatRooms3 | filtro: textoBuscar: 'emisorName'; let i = index" [attr.data-index]="i" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
         <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
       <ion-label *ngIf="thisUid === chat.emisorUid" >
-        <b>{{ userReceptorName3[i] }}</b>
+        <b>{{ userReceptorName3[i] }}</b> <br>
+        <p *ngIf="chat.chatColor === 'danger'">Modulo: Coupet</p>
+        <p *ngIf="chat.chatColor === 'primary'">Modulo: Perdidos</p>
+        <p *ngIf="chat.chatColor === 'success'">Modulo: Adopción</p>
       </ion-label>
       <ion-label *ngIf="thisUid === chat.receptorUid" >
-        <b>{{ userEmisorName3[i] }}</b>
+        <b>{{ userEmisorName3[i] }}</b> <br>
+        <p *ngIf="chat.chatColor === 'danger'">Modulo: Coupet</p>
+        <p *ngIf="chat.chatColor === 'primary'">Modulo: Perdidos</p>
+        <p *ngIf="chat.chatColor === 'success'">Modulo: Adopción</p>
       </ion-label>
     </ion-item>
   </ion-list>

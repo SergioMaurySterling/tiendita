@@ -104,7 +104,7 @@
         </ion-item>
         <ion-item *ngIf="hide === true">
           <ion-col size="6">
-            <ion-button mode="ios" color="primary" expand="block" (click)="changeDir()">
+            <ion-button mode="ios" [disabled]="!directionForm.valid" color="primary" expand="block" (click)="changeDir()">
               <b>Cambiar</b>
             </ion-button>
           </ion-col>

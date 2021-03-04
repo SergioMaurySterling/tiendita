@@ -37,7 +37,7 @@
     <ion-row>
       <ion-col size-md="3" size-xs="6" *ngFor="let todo of products | filtro: textoBuscar: 'name' | filtro: textoBuscarB: 'ProdcutCatId'">
         <div id="card" class="ion-text-center">
-          <ion-img src="{{ todo.imageUrl.filepath }}" class="your-img" *ngIf="todo.imageUrl"  (click)="abrirModal(todo.uid)"></ion-img>
+          <ion-img src="{{ todo.imageUrl.filepath }}" class="your-img" *ngIf="todo.imageUrl"  (click)="abrirModal(todo)"></ion-img>
 
           <ion-button mode="md" class="situation" color="primary" (click)="addToCart(todo)">
             <b>Agregar</b>

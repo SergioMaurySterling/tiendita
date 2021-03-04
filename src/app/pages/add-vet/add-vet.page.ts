@@ -119,6 +119,7 @@ export class AddVetPage implements OnInit {
       amountVent: 0,
       catId: this.catId,
       catName: catname,
+      asociadoDescription: this.asociadoDescription,
       color: this.color,
 
       date: new Date().toString()
