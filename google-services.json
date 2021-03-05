@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803233260404:android:9b10d5b1aa690fe5660221",
+        "mobilesdk_app_id": "1:803233260404:android:bea9dd3d2bded853660221",
         "android_client_info": {
-          "package_name": "com.petti.petti"
+          "package_name": "com.innova.petti"
         }
       },
       "oauth_client": [
