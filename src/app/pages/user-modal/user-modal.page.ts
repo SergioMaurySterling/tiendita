@@ -138,7 +138,7 @@ export class UserModalPage implements OnInit {
         receptorUid: this.receptorUid,
         emisorName: this.emisorName,
         emisorUid: this.emisorUid,
-        chatColor: 'primary',
+        chatColor: 'dark',
         chatRoomDate: new Date().toString()
       };
 

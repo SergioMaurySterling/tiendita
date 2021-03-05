@@ -30,6 +30,10 @@ body{
     overflow-y:scroll;
 }
 
+body.backdrop-no-scroll{
+    overflow-y:scroll;
+}
+
 ion-slides{
     height: 100%;
 }
@@ -104,7 +108,7 @@ h2 {
 }
 
 .waybox-modal{
-    top: 0vh;
+    top: 10%;
 }
 .waybox-backdrop{
     overflow: hidden;

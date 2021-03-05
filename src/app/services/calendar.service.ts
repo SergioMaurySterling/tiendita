@@ -129,7 +129,7 @@ export class CalendarService {
   getTodoByEmisor(emisorUid) {
 
     const date = new Date();
-    date.setHours(23, 59, 59, 999);
+    // date.setHours(23, 59, 59, 999);
 
     return this.db.collection('calendar', ref => ref
     .where('catId', '==', emisorUid)

@@ -61,6 +61,12 @@ export class VetModalPage implements OnInit {
     });
     await loading.present();
 
+    // NO ELIMINAR
+    this.userService.getTodos().subscribe(res => {
+      this.user = res;
+      loading.dismiss();
+    });
+
     this.userService.getTodo((await this.afs.currentUser).uid).subscribe(res => {
       this.user = res;
       loading.dismiss();

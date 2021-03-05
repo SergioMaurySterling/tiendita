@@ -123,7 +123,7 @@ export class VetDetailPage implements OnInit {
       this.openChat(this.oneChat);
     } else{
       const eventCopy = {
-        receptorName: this.receptorName,
+        receptorName: this.name,
         receptorUid: this.receptorUid,
         emisorName: this.emisorName,
         emisorUid: this.emisorUid,
