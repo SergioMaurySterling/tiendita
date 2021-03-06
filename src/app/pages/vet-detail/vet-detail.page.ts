@@ -71,6 +71,7 @@ export class VetDetailPage implements OnInit {
 
   async ngOnInit() {
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -209,7 +210,7 @@ export class VetDetailPage implements OnInit {
 
     const vetData = await this.alertController3.create({
       header: 'Observaciones',
-      mode: 'md',
+      mode: 'ios',
       inputs:[
         {
           name: 'observation',
@@ -233,7 +234,7 @@ export class VetDetailPage implements OnInit {
               const alert = await this.alertController.create({
                 header: 'Seleccionar pago',
                 subHeader: 'El mes empezara correr al momento de usted realizar la solicitud',
-                mode: 'md',
+                mode: 'ios',
                 inputs: [
                   {
                     name: 'name1',

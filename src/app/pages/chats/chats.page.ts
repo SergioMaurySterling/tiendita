@@ -19,6 +19,8 @@ export class ChatsPage implements OnInit {
   selectTabs = 'creadas';
   idE3: any;
   idR3: any;
+  userEmisorName = [];
+  userReceptorName = [];
   userEmisorName2 = [];
   userReceptorName2 = [];
   userEmisorName3 = [];
@@ -45,6 +47,7 @@ export class ChatsPage implements OnInit {
   async ngOnInit() {
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -62,6 +65,18 @@ export class ChatsPage implements OnInit {
     this.chatservice.getTodosDesc().subscribe( chats => {
       loading.dismiss();
       this.chatRooms = chats;
+
+      for (let index = 0; index < this.chatRooms.length; index++) {
+        const element = this.chatRooms[index];
+        
+        this.userService.getTodo(element.emisorUid).subscribe( res => {
+          this.userEmisorName.push(res.name + ' ' + res.lastname);
+        });
+
+        this.userService.getTodo(element.receptorUid).subscribe( res => {
+          this.userReceptorName.push(res.name + ' ' + res.lastname);
+        });
+      }
     });
 
     this.chatservice.getUsersByEmisorDesc((await this.af.currentUser).uid).subscribe( chats => {

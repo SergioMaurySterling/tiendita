@@ -98,6 +98,7 @@ export class CartmodalPage implements OnInit {
     this.cart = CartService.getCart();
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -200,7 +201,7 @@ export class CartmodalPage implements OnInit {
     } else {
     const alert = await this.alertController.create({
       header: 'Seleccionar pago',
-      mode: 'md',
+      mode: 'ios',
       inputs: [
         {
           name: 'name1',

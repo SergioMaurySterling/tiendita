@@ -58,6 +58,7 @@ export class EditCalendarPage implements OnInit {
 
   async loadTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -90,6 +91,7 @@ export class EditCalendarPage implements OnInit {
 
   async saveTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Actualizando...'
     });
     await loading.present();

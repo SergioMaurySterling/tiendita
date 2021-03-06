@@ -67,6 +67,7 @@ export class EditpublicationPage implements OnInit {
 
   async loadTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -92,6 +93,7 @@ export class EditpublicationPage implements OnInit {
 
   async saveTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Actualizando...'
     });
     await loading.present();
@@ -150,6 +152,7 @@ export class EditpublicationPage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Please wait...'
     });
     return this.loading.present();

@@ -28,6 +28,7 @@ export class PetshopPage implements OnInit {
   async ngOnInit() {
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();

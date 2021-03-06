@@ -44,6 +44,7 @@ export class EditCuposPage implements OnInit {
 
   async loadTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -67,6 +68,7 @@ export class EditCuposPage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Cancelar',
+      mode: 'ios',
       inputs: [
         {
           name: 'name1',

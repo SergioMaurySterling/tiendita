@@ -42,6 +42,7 @@ export class ModalProductPage implements OnInit {
   async ngOnInit() {
     this.cart = CartService.getCart();
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();

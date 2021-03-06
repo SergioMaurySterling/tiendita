@@ -57,6 +57,7 @@ export class VetModalPage implements OnInit {
 
   async ngOnInit() {
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -128,7 +129,7 @@ export class VetModalPage implements OnInit {
 
     const vetData = await this.alertController3.create({
       header: 'Observaciones',
-      mode: 'md',
+      mode: 'ios',
       inputs:[
         {
           name: 'observation',
@@ -152,7 +153,7 @@ export class VetModalPage implements OnInit {
               const alert = await this.alertController.create({
                 header: 'Seleccionar pago',
                 subHeader: 'El mes empezara correr al momento de usted realizar la solicitud',
-                mode: 'md',
+                mode: 'ios',
                 inputs: [
                   {
                     name: 'name1',
@@ -181,7 +182,7 @@ export class VetModalPage implements OnInit {
                       if (data === '1'){
                         if (price === 0) {
                           const alert2 = await this.alertController2.create({
-                            header: 'Alert',
+                            mode: 'ios',
                             message: 'Debe agregar productos al carrito.',
                             buttons: ['OK']
                           });
@@ -233,7 +234,7 @@ export class VetModalPage implements OnInit {
                         // this.closeModal();
           
                         const alert2 = await this.alertController2.create({
-                          header: 'Alert',
+                          mode: 'ios',
                           message: 'Pago registrado con exito.',
                           buttons: ['OK']
                         });

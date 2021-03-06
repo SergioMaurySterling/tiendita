@@ -69,6 +69,7 @@ export class CalendarPage implements OnInit {
     this.todoId = this.route.snapshot.params.id;
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -174,6 +175,7 @@ export class CalendarPage implements OnInit {
 
     const alert = await this.alertCtrl.create({
       header: 'Creador: ' + event.emisorName,
+      mode: 'ios',
       subHeader: event.desc,
       message: 'Inicio: ' + start + '<br><br>Fin: ' + end,
       buttons: ['OK']

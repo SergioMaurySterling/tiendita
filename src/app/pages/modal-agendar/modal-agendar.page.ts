@@ -54,6 +54,7 @@ export class ModalAgendarPage implements OnInit {
 
   async ngOnInit() {
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -77,7 +78,7 @@ export class ModalAgendarPage implements OnInit {
     const direction = this.user.direction;
     const vetData = await this.alertController3.create({
       header: 'Observaciones',
-      mode: 'md',
+      mode: 'ios',
       inputs:[
         {
           name: 'observation',

@@ -115,6 +115,7 @@ export class EdituserPage implements OnInit {
     }
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -139,6 +140,7 @@ export class EdituserPage implements OnInit {
 
   async loadTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -165,6 +167,7 @@ export class EdituserPage implements OnInit {
 
   async saveTodo(){
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Actualizando...'
     });
     await loading.present();
@@ -260,6 +263,7 @@ export class EdituserPage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Subiendo imagen...'
     });
     return this.loading.present();

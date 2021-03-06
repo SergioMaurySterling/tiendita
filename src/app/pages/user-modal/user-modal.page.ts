@@ -56,11 +56,12 @@ export class UserModalPage implements OnInit {
 
   async ngOnInit() {
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
 
-    this.color = 'primary';
+    this.color = 'dark';
 
     this.af.authState.subscribe( userL => {
       if (userL) {

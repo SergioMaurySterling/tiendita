@@ -53,6 +53,7 @@ export class HistorialPage implements OnInit {
   async ngOnInit() {
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -143,6 +144,7 @@ export class HistorialPage implements OnInit {
 
       const alert = await this.alertController.create({
         header: 'Cancelar',
+        mode: 'ios',
         inputs: [
           {
             name: 'name1',
@@ -188,6 +190,7 @@ export class HistorialPage implements OnInit {
 
       const alert = await this.alertController.create({
         header: 'Cancelar',
+        mode: 'ios',
         inputs: [
           {
             name: 'name1',

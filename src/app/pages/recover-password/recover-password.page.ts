@@ -38,6 +38,7 @@ export class RecoverPasswordPage implements OnInit {
   async onResetPassword(email){
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();

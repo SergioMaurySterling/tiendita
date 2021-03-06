@@ -53,6 +53,7 @@ export class AddmodalPage implements OnInit {
   async ngOnInit() {
 
     const loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     await loading.present();
@@ -148,6 +149,7 @@ export class AddmodalPage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
+      mode: 'ios',
       message: 'Cargando...'
     });
     return this.loading.present();

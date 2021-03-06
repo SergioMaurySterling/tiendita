@@ -5,18 +5,37 @@ admin.initializeApp(functions.config().firebase);
 
 exports.newMessageNotification = functions.firestore
     .document('chatRooms/{receptorUid}')
-    .onCreate(async event => {
-        const data = event.data();
+    .onUpdate(async event => {
+        const data = event.before.data();
 
         const uid = data.receptorUid
-        const name = data.emisorName
+        const emisorUid = data.emisorUid
+
+        // Busqueda del usuario Emisor del chat
+        const db2 = admin.firestore()
+        const emisor = db2.collection('users').where('uid', '==', emisorUid)
+        // Obtener nombre de usuario
+        const emisorAlmacenamiento = await emisor.get()
+        const emisorName: string | any[] = []
+        // Loop sobre documentos
+        emisorAlmacenamiento.forEach(result => {
+            const almacenar = result.data().name;
+            emisorName.push(almacenar)
+        })
+
+        const name = emisorName
 
         //Contenido de la notificacion
         const payload = {
             notification: {
-                title: 'Nuevo mensaje en Petti',
+                title: 'Nuevo mensaje en el chat',
                 body: `${name} te ha enviado un mensaje`,
-                icon: 'https://petti-2d60d.web.app/assets/logo-amarillo.svg'
+                icon: 'https://petti-2d60d.web.app/assets/logo-amarillo.svg',
+                click_action: 'FCM_PLUGIN_ACTIVITY'
+            },
+            data: {
+                landing_page: 'chats',
+                eUid: emisorUid
             }
         }
 
@@ -39,10 +58,3 @@ exports.newMessageNotification = functions.firestore
         // Enviar notificacion
         return admin.messaging().sendToDevice(tokens, payload)
     });
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });

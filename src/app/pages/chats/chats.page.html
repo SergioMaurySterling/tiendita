@@ -16,12 +16,17 @@
   <ion-searchbar placeholder="Ingrese la busqueda" mode="ios" showCancelButton="never" (ionChange)="buscar($event)"></ion-searchbar>
 
   <ion-list *ngIf="rol === 'admin'">
-    <ion-item *ngFor = "let chat of chatRooms | filtro: textoBuscar: 'emisorName'" (click)="openChat(chat)" button>
+    <ion-item *ngFor="let chat of chatRooms | filtro: textoBuscar: 'emisorName'; let i = index" [attr.data-index]="i" (click)="openChat(chat)" button>
       <ion-avatar slot="start">
         <img src="assets/logo-amarillo.svg" alt="">
       </ion-avatar>
       <ion-label>
-        <b>Emisor:</b> {{ chat.emisorName }} <br> <b>Receptor: </b>{{ chat.receptorName }}
+        <b>Emisor:</b> {{ userEmisorName[i] }} <br> <b>Receptor: </b>{{ userReceptorName[i] }} <br>
+        <p *ngIf="chat.chatColor === 'danger'">Modulo: Coupet</p>
+        <p *ngIf="chat.chatColor === 'primary'">Modulo: Perdidos</p>
+        <p *ngIf="chat.chatColor === 'success'">Modulo: Adopción</p>
+        <p *ngIf="chat.chatColor === 'secondary'">Modulo: Vet & Care</p>
+        <p *ngIf="chat.chatColor === 'dark'">Modulo: Ventas</p>
       </ion-label>
     </ion-item>
   </ion-list>
