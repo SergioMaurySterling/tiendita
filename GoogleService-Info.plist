@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>803233260404-i1h257b984ccmo2pb5geses28nebqk7l.apps.googleusercontent.com</string>
+	<string>803233260404-9tgr5k853lpp1sdl5r2fchmfe0mrmqnc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.803233260404-i1h257b984ccmo2pb5geses28nebqk7l</string>
+	<string>com.googleusercontent.apps.803233260404-9tgr5k853lpp1sdl5r2fchmfe0mrmqnc</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>803233260404-op9osnec9jdlqohmi7vh0buoo568aqc3.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.innova.petti</string>
+	<string>com.innovasij.petti</string>
 	<key>PROJECT_ID</key>
 	<string>petti-2d60d</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:803233260404:ios:f60a48b7b4b73b93660221</string>
+	<string>1:803233260404:ios:5e264ec8a2ab73d8660221</string>
 	<key>DATABASE_URL</key>
 	<string>https://petti-2d60d.firebaseio.com</string>
 </dict>

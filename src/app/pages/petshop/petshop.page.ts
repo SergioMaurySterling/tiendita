@@ -34,27 +34,23 @@ export class PetshopPage implements OnInit {
     });
     await loading.present();
 
-    if (this.platform.is('ipad')){
-      loading.dismiss();
-    } else {
-      this.af.authState.subscribe( userL => {
-        if (userL) {
-          this.uid = userL.uid;
-          this.userService.getTodo(this.uid).subscribe(res => {
-            loading.dismiss();
-            this.user = res;
-  
-            this.rol = this.user.rol;
-            console.log('logeado');
-          });
-  
-        } else {
+    this.af.authState.subscribe( userL => {
+      if (userL) {
+        this.uid = userL.uid;
+        this.userService.getTodo(this.uid).subscribe(res => {
           loading.dismiss();
-          console.log('not loging');
-        }
-        
-      });
-    }
+          this.user = res;
+
+          this.rol = this.user.rol;
+          console.log('logeado');
+        });
+
+      } else {
+        loading.dismiss();
+        console.log('not loging');
+      }
+      
+    });
 
     this.userService.getUsersByRolIsActive('emp', true).subscribe(res => {
       loading.dismiss();

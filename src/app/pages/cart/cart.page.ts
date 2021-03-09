@@ -62,26 +62,21 @@ export class CartPage implements OnInit {
     });
     await loading.present();
 
-    if (this.platform.is('ipad')){
-      loading.dismiss();
-      console.log('not loging');
-    } else{
-      this.afAuth.authState.subscribe( userL => {
-        if (userL) {
-          this.uid = userL.uid;
-          this.userService.getTodo(this.uid).subscribe(res => {
-            loading.dismiss();
-            this.user = res;
-  
-            this.rol = this.user.rol;
-            console.log('logeado');
-          });
-        } else {
+    this.afAuth.authState.subscribe( userL => {
+      if (userL) {
+        this.uid = userL.uid;
+        this.userService.getTodo(this.uid).subscribe(res => {
           loading.dismiss();
-          console.log('not loging');
-        }
-      });
-    }
+          this.user = res;
+
+          this.rol = this.user.rol;
+          console.log('logeado');
+        });
+      } else {
+        loading.dismiss();
+        console.log('not loging');
+      }
+    });
     
 
     this.todoId = this.route.snapshot.params.id;

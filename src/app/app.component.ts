@@ -73,10 +73,7 @@ export class AppComponent implements OnInit{
     });
     await loading.present();
 
-    if (this.platform.is('ipad')){
-      loading.dismiss();
-    } else{
-      this.afAuth.authState.subscribe( userL => {
+    this.afAuth.authState.subscribe( userL => {
         if (userL) {
           this.uid = userL.uid;
           this.userService.getTodo(this.uid).subscribe(res => {
@@ -121,7 +118,6 @@ export class AppComponent implements OnInit{
           });
         }
       });
-    }
 
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
@@ -244,15 +240,11 @@ export class AppComponent implements OnInit{
   }
 
   async ngOnInit() {
-    if (this.platform.is('ipad')){
-
-    } else {
-      this.afAuth.authState.subscribe( async user => {
-        if (user) {
-          this.hasVerifiedEmail = (await this.afAuth.currentUser).emailVerified;
-        }
-      });
-    }
+    this.afAuth.authState.subscribe( async user => {
+      if (user) {
+        this.hasVerifiedEmail = (await this.afAuth.currentUser).emailVerified;
+      }
+    });
   }
 
   async sendVerificationEmail(){
