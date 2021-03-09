@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { UsersService } from 'src/app/services/users.service';
 import { RatePage } from '../rate/rate.page';
@@ -13,6 +13,7 @@ import { RatePage } from '../rate/rate.page';
 export class PetshopPage implements OnInit {
 
   constructor(
+    private platform: Platform,
     public af: AngularFireAuth,
     private loadingController: LoadingController,
     private modalCtrl: ModalController,
@@ -33,27 +34,33 @@ export class PetshopPage implements OnInit {
     });
     await loading.present();
 
-    this.af.authState.subscribe( userL => {
-      if (userL) {
-        this.uid = userL.uid;
-        this.userService.getTodo(this.uid).subscribe(res => {
+    if (this.platform.is('ipad')){
+      loading.dismiss();
+    } else {
+      this.af.authState.subscribe( userL => {
+        if (userL) {
+          this.uid = userL.uid;
+          this.userService.getTodo(this.uid).subscribe(res => {
+            loading.dismiss();
+            this.user = res;
+  
+            this.rol = this.user.rol;
+            console.log('logeado');
+          });
+  
+        } else {
           loading.dismiss();
-          this.user = res;
-
-          this.rol = this.user.rol;
-          console.log('logeado');
-        });
-
-      } else {
-        loading.dismiss();
-        console.log('not loging');
-      }
-
-      this.userService.getUsersByRolIsActive('emp', true).subscribe(res => {
-        loading.dismiss();
-        this.aliados = res;
+          console.log('not loging');
+        }
+        
       });
+    }
+
+    this.userService.getUsersByRolIsActive('emp', true).subscribe(res => {
+      loading.dismiss();
+      this.aliados = res;
     });
+    
   }
 
   average(item){

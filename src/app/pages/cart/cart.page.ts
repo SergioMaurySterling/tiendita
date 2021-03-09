@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { ModalController, ActionSheetController, LoadingController } from '@ionic/angular';
+import { ModalController, ActionSheetController, LoadingController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartmodalPage } from '../cartmodal/cartmodal.page';
 import { usersM } from 'src/app/models/user';
@@ -20,6 +20,7 @@ import { ModalProductPage } from '../modal-product/modal-product.page';
 export class CartPage implements OnInit {
 
   constructor(
+    private platform: Platform,
     private cartService: CartService,
     private productsService: ProductService,
     private modalCtrl: ModalController,
@@ -61,21 +62,27 @@ export class CartPage implements OnInit {
     });
     await loading.present();
 
-    this.afAuth.authState.subscribe( userL => {
-      if (userL) {
-        this.uid = userL.uid;
-        this.userService.getTodo(this.uid).subscribe(res => {
+    if (this.platform.is('ipad')){
+      loading.dismiss();
+      console.log('not loging');
+    } else{
+      this.afAuth.authState.subscribe( userL => {
+        if (userL) {
+          this.uid = userL.uid;
+          this.userService.getTodo(this.uid).subscribe(res => {
+            loading.dismiss();
+            this.user = res;
+  
+            this.rol = this.user.rol;
+            console.log('logeado');
+          });
+        } else {
           loading.dismiss();
-          this.user = res;
-
-          this.rol = this.user.rol;
-          console.log('logeado');
-        });
-      } else {
-        loading.dismiss();
-        console.log('not loging');
-      }
-    });
+          console.log('not loging');
+        }
+      });
+    }
+    
 
     this.todoId = this.route.snapshot.params.id;
     CartPage.eId = this.route.snapshot.params.id;

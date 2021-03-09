@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Product } from 'src/app/services/cart.service';
 import { CartService } from '../../services/cart.service';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, Platform } from '@ionic/angular';
 import { PayService } from '../../services/pay.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -46,6 +46,7 @@ export class CartmodalPage implements OnInit {
   static cart: Product[] = [];
 
   constructor(
+    private platform: Platform,
     private modalCtrl: ModalController,
     private payService: PayService,
     public userService: UsersService,
@@ -103,39 +104,45 @@ export class CartmodalPage implements OnInit {
     });
     await loading.present();
 
-    this.afAuth.authState.subscribe( userL => {
-      if (userL) {
-        this.uid = userL.uid;
-        loading.dismiss();
-        this.userService.getTodo(this.uid).subscribe(res => {
+    if (this.platform.is('ipad')){
+      loading.dismiss();
+      console.log('not loging');
+    } else{
+      this.afAuth.authState.subscribe( userL => {
+        if (userL) {
+          this.uid = userL.uid;
           loading.dismiss();
-          this.user = res;
-
-          this.userFullName = this.user.name + ' ' + this.user.lastname;
-          this.direction = this.user.direction;
-          this.Userlat = this.user.latitude;
-          this.Userlng = this.user.longitude;
-          console.log('logeado');
-          console.log('Tu ubicación: ' + this.Userlat + ' ' + this.Userlng);
-        });
-
-        this.userService.getTodo(this.empId).subscribe(res => {
+          this.userService.getTodo(this.uid).subscribe(res => {
+            loading.dismiss();
+            this.user = res;
+  
+            this.userFullName = this.user.name + ' ' + this.user.lastname;
+            this.direction = this.user.direction;
+            this.Userlat = this.user.latitude;
+            this.Userlng = this.user.longitude;
+            console.log('logeado');
+            console.log('Tu ubicación: ' + this.Userlat + ' ' + this.Userlng);
+          });
+  
+          this.userService.getTodo(this.empId).subscribe(res => {
+            loading.dismiss();
+            this.emp = res;
+  
+            this.empUid = this.emp.uid;
+            this.Emplat = this.emp.latitude;
+            this.Emplng = this.emp.longitude;
+            this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
+            console.log('logeado');
+            console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng);
+          });
+  
+        } else {
           loading.dismiss();
-          this.emp = res;
-
-          this.empUid = this.emp.uid;
-          this.Emplat = this.emp.latitude;
-          this.Emplng = this.emp.longitude;
-          this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
-          console.log('logeado');
-          console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng);
-        });
-
-      } else {
-        loading.dismiss();
-        console.log('not loging');
-      }
-    });
+          console.log('not loging');
+        }
+      });
+    }
+    
     this.hora();
   }
 

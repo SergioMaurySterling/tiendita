@@ -73,51 +73,55 @@ export class AppComponent implements OnInit{
     });
     await loading.present();
 
-    this.afAuth.authState.subscribe( userL => {
-      if (userL) {
-        this.uid = userL.uid;
-        this.userService.getTodo(this.uid).subscribe(res => {
+    if (this.platform.is('ipad')){
+      loading.dismiss();
+    } else{
+      this.afAuth.authState.subscribe( userL => {
+        if (userL) {
+          this.uid = userL.uid;
+          this.userService.getTodo(this.uid).subscribe(res => {
+            loading.dismiss();
+            this.user = res;
+  
+            this.isActive = this.user.isActive;
+            this.rol = this.user.rol;
+            this.nameAnalitics = res.name +' '+ res.lastname;
+  
+            // Google Analytics
+            firebase.analytics().logEvent('eventname', {
+              'firsttimeuser': true,
+              'username': this.nameAnalitics
+            });
+  
+            if (this.rol === 'user') {
+              this.isPetData = this.user.isPetData;
+              if (this.isPetData === false) {
+                this.modal.create({
+                  component: PetdataPage,
+                  cssClass: 'my-custom-modal-css',
+                  componentProps: {
+                    uid: this.uid
+                  }
+                }).then( (modal) => modal.present());
+              }
+            }
+  
+            this.imageUrl = this.user.imageUrl;
+            console.log('logeado');
+            console.log('Activo:' + this.isActive);
+          });
+        } else {
           loading.dismiss();
-          this.user = res;
-
-          this.isActive = this.user.isActive;
-          this.rol = this.user.rol;
-          this.nameAnalitics = res.name +' '+ res.lastname;
-
+          console.log('not loging');
+  
           // Google Analytics
           firebase.analytics().logEvent('eventname', {
             'firsttimeuser': true,
-            'username': this.nameAnalitics
+            'username': 'No Conectado'
           });
-
-          if (this.rol === 'user') {
-            this.isPetData = this.user.isPetData;
-            if (this.isPetData === false) {
-              this.modal.create({
-                component: PetdataPage,
-                cssClass: 'my-custom-modal-css',
-                componentProps: {
-                  uid: this.uid
-                }
-              }).then( (modal) => modal.present());
-            }
-          }
-
-          this.imageUrl = this.user.imageUrl;
-          console.log('logeado');
-          console.log('Activo:' + this.isActive);
-        });
-      } else {
-        loading.dismiss();
-        console.log('not loging');
-
-        // Google Analytics
-        firebase.analytics().logEvent('eventname', {
-          'firsttimeuser': true,
-          'username': 'No Conectado'
-        });
-      }
-    });
+        }
+      });
+    }
 
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
@@ -240,11 +244,15 @@ export class AppComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.afAuth.authState.subscribe( async user => {
-      if (user) {
-        this.hasVerifiedEmail = (await this.afAuth.currentUser).emailVerified;
-      }
-    });
+    if (this.platform.is('ipad')){
+
+    } else {
+      this.afAuth.authState.subscribe( async user => {
+        if (user) {
+          this.hasVerifiedEmail = (await this.afAuth.currentUser).emailVerified;
+        }
+      });
+    }
   }
 
   async sendVerificationEmail(){
