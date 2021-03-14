@@ -127,7 +127,7 @@ export class RegisterempPage implements OnInit {
       }).catch(async err => {
         console.log(err);
         const alert = await this.alertController.create({
-          message: 'Este usuario ya se encuentra registrado',
+          message: err,
           buttons: ['OK']
         });
         await alert.present();

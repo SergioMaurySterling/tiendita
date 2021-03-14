@@ -28,6 +28,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 
+import { Camera } from '@ionic-native/camera/ngx';
+
 @NgModule({
   declarations: [AppComponent, ChatComponent],
   entryComponents: [ChatComponent],
@@ -53,6 +55,7 @@ import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
     CallNumber,
     Geolocation,
     NativeGeocoder,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: SETTINGS, useValue: {}}
   ],
