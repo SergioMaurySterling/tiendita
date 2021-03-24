@@ -79,7 +79,7 @@ export class AddmodalPage implements OnInit {
       age: ['', Validators.required],
       city: ['', Validators.required],
       description: ['', Validators.required],
-      imageUrl: ['', Validators.required]
+      imageUrl: ['']
     });
   }
 

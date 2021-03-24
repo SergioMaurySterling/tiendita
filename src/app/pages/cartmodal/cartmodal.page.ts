@@ -128,6 +128,11 @@ export class CartmodalPage implements OnInit {
           this.Emplat = this.emp.latitude;
           this.Emplng = this.emp.longitude;
           this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
+          if(this.empDelivery > 0 && this.empDelivery < 5000){
+            this.empDelivery = 5000;
+          } else{
+            this.empDelivery;
+          }
           console.log('logeado');
           console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng);
         });
@@ -481,6 +486,11 @@ export class CartmodalPage implements OnInit {
     this.Emplat = this.latitude;
     this.Emplng = this.longitude;
     this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
+    if(this.empDelivery > 0 && this.empDelivery < 5000){
+      this.empDelivery = 5000;
+    } else{
+      this.empDelivery;
+    }
     console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng + ' ' + this.direction);
     this.hide = false;
   }

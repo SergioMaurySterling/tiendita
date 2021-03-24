@@ -87,7 +87,7 @@ export class AddVetPage implements OnInit {
 
   validatorsForms() {
     this.directionForm = this.formBuilder.group({
-      imageUrl: ['', Validators.required],
+      imageUrl: [''],
       namevet: ['', Validators.required],
       price: ['', Validators.required],
       typeservice: ['', Validators.required],

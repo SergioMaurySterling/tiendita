@@ -42,7 +42,7 @@ export class PetdataPage implements OnInit {
 
   validatorsForms(){
     this.directionForm = this.formBuilder.group({
-      petImage: ['', Validators.required],
+      petImage: [''],
       petName: ['', Validators.required],
       petSize: ['', Validators.required],
       petRace: ['', Validators.required],

@@ -69,7 +69,7 @@ export class RegisterPage implements OnInit {
       phone: ['', Validators.required],
       autocomplete: ['', Validators.required],
       direction: ['', Validators.required],
-      terminos: ['', Validators.required],
+      terminos: [''],
     });
   }
 
