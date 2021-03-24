@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
     }).catch(async err => {
       console.log(err);
       const alert = await this.alertController.create({
-        message: 'Datos incorrectos o el usuario no existe.',
+        message: err,
         buttons: ['OK']
       });
       await alert.present();
