@@ -50,11 +50,11 @@ export class EditpublicationPage implements OnInit {
   validatorsForms() {
     this.directionForm = this.formBuilder.group({
       imageUrl: [''],
-      name: ['', Validators.required],
-      price: ['', Validators.required],
-      typeservice: ['', Validators.required],
-      catId: ['', Validators.required],
-      asociadoDescription: ['', Validators.required],
+      name: [''],
+      price: [''],
+      typeservice: [''],
+      catId: [''],
+      asociadoDescription: [''],
     });
   }
 

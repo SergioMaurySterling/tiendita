@@ -49,11 +49,11 @@ export class EditproductsPage implements OnInit {
   validatorsForms() {
     this.directionForm = this.formBuilder.group({
       images: [''],
-      name: ['', Validators.required],
-      ProdcutCatId: ['', Validators.required],
-      price: ['', Validators.required],
+      name: [''],
+      ProdcutCatId: [''],
+      price: [''],
       delprice: [''],
-      description: ['', Validators.required],
+      description: [''],
     });
   }
 

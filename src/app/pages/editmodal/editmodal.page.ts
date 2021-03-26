@@ -44,11 +44,11 @@ export class EditmodalPage implements OnInit {
   validatorsForms() {
     this.directionForm = this.formBuilder.group({
       imageUrl: [''],
-      petName: ['', Validators.required],
+      petName: [''],
       situation: [''],
-      age: ['', Validators.required],
-      city: ['', Validators.required],
-      description: ['', Validators.required],
+      age: [''],
+      city: [''],
+      description: [''],
     });
   }
 

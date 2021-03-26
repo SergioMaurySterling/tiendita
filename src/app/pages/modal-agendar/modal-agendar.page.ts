@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, Platform } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarService } from '../../services/calendar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -42,14 +42,21 @@ export class ModalAgendarPage implements OnInit {
     public router: Router,
     public af: AngularFireAuth,
     private userService: UsersService,
+    private platform: Platform,
   ) {
     this.validatorsForms();
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      payMethod: ['', Validators.required]
-    });
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        payMethod: ['']
+      });
+    } else {
+      this.directionForm = this.formBuilder.group({
+        payMethod: ['', Validators.required]
+      });
+    }
   }
 
   async ngOnInit() {
@@ -75,103 +82,117 @@ export class ModalAgendarPage implements OnInit {
   }
 
   async checkout(price, eUid, vName, uid, cp, vvuid) {
-    const direction = this.user.direction;
-    const vetData = await this.alertController3.create({
-      header: 'Observaciones',
-      mode: 'ios',
-      inputs:[
-        {
-          name: 'observation',
-          type: 'textarea',
-          placeholder: 'Ingrese observaciones para el servicio',
-        }
-      ],
-      buttons: [
-        {
-          text: 'CANCELAR',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
+
+    if (this.payMethod === undefined || this.payMethod === null) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el metodo de pago',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else {
+      const direction = this.user.direction;
+      const vetData = await this.alertController3.create({
+        header: 'Observaciones',
+        mode: 'ios',
+        inputs:[
+          {
+            name: 'observation',
+            type: 'textarea',
+            placeholder: 'Ingrese observaciones para el servicio',
           }
-        },{
-          text: 'Pagar',
-          handler: async (dato) => {
-            if (dato && dato.observation !== '') {
-              const pData = dato.observation
+        ],
+        buttons: [
+          {
+            text: 'CANCELAR',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          },{
+            text: 'Pagar',
+            handler: async (dato) => {
+              if (dato && dato.observation !== '') {
+                const pData = dato.observation
 
-              const random = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                const random = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-              if (this.payMethod === 'Efectivo') {
+                if (this.payMethod === 'Efectivo') {
 
-                ModalAgendarPage.saveTodo(vvuid, uid, eUid, vName, null, random, 'CASH', 'CASH', null, 'APPROVED', price * 100, pData, direction);
+                  ModalAgendarPage.saveTodo(vvuid, uid, eUid, vName, null, random, 'CASH', 'CASH', null, 'APPROVED', price * 100, pData, direction);
 
-                this.calendarService.Todos(uid).update({
-                  cupos: cp - 1,
-                });
-                this.closeModal();
+                  this.calendarService.Todos(uid).update({
+                    cupos: cp - 1,
+                  });
+                  this.closeModal();
 
-                const alert = await this.alertController.create({
-                  message: 'Producto agregado.',
-                  buttons: ['OK']
-                });
-                await alert.present();
+                  const alert = await this.alertController.create({
+                    message: 'Producto agregado.',
+                    buttons: ['OK']
+                  });
+                  await alert.present();
 
-                this.router.navigate(['/historial']);
+                  this.router.navigate(['/historial']);
 
-              } else if (this.payMethod === 'Tarjeta') {
+                } else if (this.payMethod === 'Tarjeta') {
 
-                this.calendarService.Todos(uid).update({
-                  cupos: cp - 1,
-                });
+                  this.calendarService.Todos(uid).update({
+                    cupos: cp - 1,
+                  });
 
-                this.afAuth.authState.subscribe( userL => {
-                  if (userL) {
-                    const checkout = new WidgetCheckout({
-                      currency: 'COP',
-                      amountInCents: price * 100,
-                      reference: random,
-                      publicKey: environment.wompi.publicKey,
-                      redirectUrl: 'https://transaction-redirect.wompi.co/check' // Opcional
-                    });
+                  this.afAuth.authState.subscribe( userL => {
+                    if (userL) {
+                      const checkout = new WidgetCheckout({
+                        currency: 'COP',
+                        amountInCents: price * 100,
+                        reference: random,
+                        publicKey: environment.wompi.publicKey,
+                        redirectUrl: 'https://transaction-redirect.wompi.co/check' // Opcional
+                      });
 
-                    // tslint:disable-next-line: only-arrow-functions
-                    checkout.open( function( result ) {
-                      const transaction = result.transaction;
-                      console.log('Transaction ID: ', transaction.id);
-                      console.log('Transaction object: ', transaction);
-                      ModalAgendarPage.saveTodo(
-                        vvuid,
-                        uid,
-                        eUid,
-                        vName,
-                        transaction.id,
-                        transaction.reference,
-                        transaction.paymentMethod,
-                        transaction.paymentMethodType,
-                        transaction.customerData,
-                        transaction.status,
-                        transaction.amountInCents,
-                        pData,
-                        direction
-                      );
-                    });
-                  } else {
-                    console.log('not loging');
-                    this.closeModal();
-                    this.router.navigate(['/login']);
-                  }
-                });
+                      // tslint:disable-next-line: only-arrow-functions
+                      checkout.open( function( result ) {
+                        const transaction = result.transaction;
+                        console.log('Transaction ID: ', transaction.id);
+                        console.log('Transaction object: ', transaction);
+                        ModalAgendarPage.saveTodo(
+                          vvuid,
+                          uid,
+                          eUid,
+                          vName,
+                          transaction.id,
+                          transaction.reference,
+                          transaction.paymentMethod,
+                          transaction.paymentMethodType,
+                          transaction.customerData,
+                          transaction.status,
+                          transaction.amountInCents,
+                          pData,
+                          direction
+                        );
+                      });
+                    } else {
+                      console.log('not loging');
+                      this.closeModal();
+                      this.router.navigate(['/login']);
+                    }
+                  });
+                }
               }
             }
           }
-        }
-      ]
-    });
-    await vetData.present();
+        ]
+      });
+      await vetData.present();
+
+      
+      this.closeModal();
+
+    }
 
     
-    this.closeModal();
   }
 
   // tslint:disable-next-line: member-ordering

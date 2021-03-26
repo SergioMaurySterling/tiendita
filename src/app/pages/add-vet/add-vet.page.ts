@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AlertController, ModalController, NavController, LoadingController } from '@ionic/angular';
+import { AlertController, ModalController, NavController, LoadingController, Platform } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Modals } from '../../models/modal';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,6 +41,7 @@ export class AddVetPage implements OnInit {
     private categoryService: VetCatService,
     private loadingController: LoadingController,
     private storage: AngularFireStorage,
+    private platform: Platform,
   ) {
     this.validatorsForms();
   }
@@ -86,14 +87,25 @@ export class AddVetPage implements OnInit {
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      imageUrl: [''],
-      namevet: ['', Validators.required],
-      price: ['', Validators.required],
-      typeservice: ['', Validators.required],
-      catId: ['', Validators.required],
-      asociadoDescription: ['', Validators.required],
-    });
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        imageUrl: [''],
+        namevet: [''],
+        price: [''],
+        typeservice: [''],
+        catId: [''],
+        asociadoDescription: [''],
+      });
+    } else {
+      this.directionForm = this.formBuilder.group({
+        imageUrl: ['', Validators.required],
+        namevet: ['', Validators.required],
+        price: ['', Validators.required],
+        typeservice: ['', Validators.required],
+        catId: ['', Validators.required],
+        asociadoDescription: ['', Validators.required],
+      });
+    }
   }
 
   chooseFile(event) {
@@ -101,12 +113,62 @@ export class AddVetPage implements OnInit {
   }
 
   async CatName(){
-    this.categoryService.getTodo(this.catId).subscribe(res => {
-      this.category2 = res;
-      this.catName = this.category2.name;
+    if(this.imageUrl === undefined || this.imageUrl === null) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una imagen',
+        buttons: ['OK']
+      });
+      await alert.present();
 
-      this.saveTodo(this.catName);
-    });
+    } else if(this.namevet === undefined || this.namevet === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una imagen',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.price === undefined || this.price === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el precio del servicio',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.typeservice === undefined || this.typeservice === null) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Elija el tipo de servicio',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.catId === undefined || this.catId === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Elija la categoria del servicio',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.asociadoDescription === undefined || this.asociadoDescription === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una descripción',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+    else {
+      this.categoryService.getTodo(this.catId).subscribe(res => {
+        this.category2 = res;
+        this.catName = this.category2.name;
+  
+        this.saveTodo(this.catName);
+      });
+    }
   }
 
   async saveTodo(catname) {
@@ -135,6 +197,7 @@ export class AddVetPage implements OnInit {
       });
 
       const alert = await this.alertController.create({
+        mode: 'ios',
         message: 'Datos almacenados correctamente.',
         buttons: ['OK']
       });
@@ -144,6 +207,7 @@ export class AddVetPage implements OnInit {
       {
         console.log(err);
         const alert = await this.alertController.create({
+          mode: 'ios',
           message: 'Error al almacenar los datos.',
           buttons: ['OK']
         });

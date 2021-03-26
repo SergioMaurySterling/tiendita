@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, NavController, LoadingController, AlertController } from '@ionic/angular';
+import { ModalController, NavController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Modals } from '../../models/modal';
 import { TodoService } from '../../services/todo.service';
@@ -40,6 +40,7 @@ export class AddmodalPage implements OnInit {
     private userService: UsersService,
     private loadingController: LoadingController,
     private storage: AngularFireStorage,
+    private platform: Platform,
   ) {
     this.validatorsForms();
   }
@@ -73,14 +74,36 @@ export class AddmodalPage implements OnInit {
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      petName: ['', Validators.required],
-      situation: [''],
-      age: ['', Validators.required],
-      city: ['', Validators.required],
-      description: ['', Validators.required],
-      imageUrl: ['']
-    });
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        petName: [''],
+        situation: [''],
+        age: [''],
+        city: [''],
+        description: [''],
+        imageUrl: ['']
+      });
+    } else{
+      if (this.color === 'primary') {
+        this.directionForm = this.formBuilder.group({
+          petName: ['', Validators.required],
+          situation: ['', Validators.required],
+          age: ['', Validators.required],
+          city: ['', Validators.required],
+          description: ['', Validators.required],
+          imageUrl: ['', Validators.required]
+        });
+      } else {
+        this.directionForm = this.formBuilder.group({
+          petName: ['', Validators.required],
+          situation: [''],
+          age: ['', Validators.required],
+          city: ['', Validators.required],
+          description: ['', Validators.required],
+          imageUrl: ['', Validators.required]
+        });
+      }
+    }
   }
 
   chooseFile(event) {
@@ -88,50 +111,101 @@ export class AddmodalPage implements OnInit {
   }
 
   async saveTodo() {
-    if (this.nombre === 'Perdidos') {
-      this.st = this.situation;
-    } else {
-      this.st = null;
+
+    if (this.petName === undefined || this.petName === null) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el nombre de la mascota',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.color === 'primary'){
+      if (this.situation === undefined || this.situation === null) {
+        const alert = await this.alertController.create({
+          mode: 'ios',
+          message: 'Agregue la situación de la mascota',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    } else if (this.age === undefined || this.age === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue la edad de la mascota',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.city === undefined || this.city === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue la ciudad',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.description === undefined || this.description === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue la descripción',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.imageUrl === undefined || this.imageUrl === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue la imagen',
+        buttons: ['OK']
+      });
+      await alert.present();
+    } else{
+      if (this.nombre === 'Perdidos') {
+        this.st = this.situation;
+      } else {
+        this.st = null;
+      }
+      const saveTodo: Modals = {
+        color: this.color,
+        userUid: this.thisUserUid,
+        userName: this.name + ' ' + this.lastname,
+        petName: this.petName,
+        situation: this.st,
+        age: this.age,
+        city: this.city,
+        description: this.description,
+        likes: [],
+        dislikes: [],
+        isActive: true,
+        date: new Date().toString()
+      };
+      this.todoService.addTodo(saveTodo).then( async  res => {
+  
+        const imageUrl = await this.uploadFile(res.id, this.selectedFile);
+  
+        this.todoService.Todos(res.id).update({
+          id: res.id,
+          imageUrl: imageUrl || null
+        });
+  
+        const alert = await this.alertController.create({
+          message: 'Datos almacenados correctamente.',
+          buttons: ['OK']
+        });
+        await alert.present();
+  
+        this.router.navigate(['/mymodals']);
+      }).catch(async err => {
+        console.log(err);
+        const alert = await this.alertController.create({
+          message: 'Error al almacenar los datos.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      });
+      this.closeModal();
     }
-    const saveTodo: Modals = {
-      color: this.color,
-      userUid: this.thisUserUid,
-      userName: this.name + ' ' + this.lastname,
-      petName: this.petName,
-      situation: this.st,
-      age: this.age,
-      city: this.city,
-      description: this.description,
-      likes: [],
-      dislikes: [],
-      isActive: true,
-      date: new Date().toString()
-    };
-    this.todoService.addTodo(saveTodo).then( async  res => {
-
-      const imageUrl = await this.uploadFile(res.id, this.selectedFile);
-
-      this.todoService.Todos(res.id).update({
-        id: res.id,
-        imageUrl: imageUrl || null
-      });
-
-      const alert = await this.alertController.create({
-        message: 'Datos almacenados correctamente.',
-        buttons: ['OK']
-      });
-      await alert.present();
-
-      this.router.navigate(['/mymodals']);
-    }).catch(async err => {
-      console.log(err);
-      const alert = await this.alertController.create({
-        message: 'Error al almacenar los datos.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    });
-    this.closeModal();
   }
 
   async uploadFile(id, file): Promise<any> {

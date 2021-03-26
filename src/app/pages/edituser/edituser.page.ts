@@ -87,8 +87,8 @@ export class EdituserPage implements OnInit {
   validatorsForms(){
     this.directionForm = this.formBuilder.group({
       imageUrl: [''],
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
+      name: [''],
+      lastname: [''],
       nit: [''],
       phone: [''],
       autocomplete: [''],

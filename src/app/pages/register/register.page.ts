@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 import { TerminosPage } from '../terminos/terminos.page';
 
 declare var google;
@@ -46,6 +46,7 @@ export class RegisterPage implements OnInit {
     public router: Router,
     public modalCtrl: ModalController,
     private zone: NgZone,
+    private platform: Platform,
   ) {
     this.validatorsForms();
 
@@ -61,56 +62,127 @@ export class RegisterPage implements OnInit {
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
-      phone: ['', Validators.required],
-      autocomplete: ['', Validators.required],
-      direction: ['', Validators.required],
-      terminos: [''],
-    });
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        email: [''],
+        password: [''],
+        name: [''],
+        lastname: [''],
+        phone: [''],
+        autocomplete: [''],
+        direction: [''],
+        terminos: [''],
+      });
+    } else{
+      this.directionForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required],
+        name: ['', Validators.required],
+        lastname: ['', Validators.required],
+        phone: ['', Validators.required],
+        autocomplete: ['', Validators.required],
+        direction: ['', Validators.required],
+        terminos: [''],
+      });
+    }
   }
 
   async onSubmitRegister() {
-    if (this.terminos === true) {
-      this.auth.register(
-        this.imageUrl,
-        this.email,
-        this.password,
-        this.name,
-        this.lastname,
-        this.phone,
-        this.geo,
-        this.latitude,
-        this.longitude,
-        this.direction,
-        this.rol = 'user',
-        this.isPetData = false,
-        this.isActive = true,
-        this.date = new Date().toString()
-        ).then( async auth => {
-          const alert = await this.alertController.create({
-            message: 'Usuario agregado exitosamente.',
-            buttons: ['OK']
-          });
-          await alert.present();
-        this.router.navigate(['/']);
-      }).catch(async err => {
-        console.log(err);
-        const alert = await this.alertController.create({
-          message: err,
-          buttons: ['OK']
-        });
-        await alert.present();
-      });
-    } else {
+    if (this.email === undefined || this.email === null) {
       const alert = await this.alertController.create({
-        message: 'No ha aceptado los terminos y condiciones.',
+        mode: 'ios',
+        message: 'Agregue un email',
         buttons: ['OK']
       });
       await alert.present();
+
+    } else if (this.password === undefined || this.password === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una contraseña',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.name === undefined || this.name === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el nombre',
+        buttons: ['OK']
+      });
+      await alert.present();
+      
+    } else if (this.lastname === undefined || this.lastname){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue al menos un apellido',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.phone === undefined || this.phone === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue un telefono',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.autocomplete === undefined || this.autocomplete === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue los datos en mapas',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.direction === undefined || this.direction === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una dirección',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else {
+      if (this.terminos === true) {
+        this.auth.register(
+          this.imageUrl,
+          this.email,
+          this.password,
+          this.name,
+          this.lastname,
+          this.phone,
+          this.geo,
+          this.latitude,
+          this.longitude,
+          this.direction,
+          this.rol = 'user',
+          this.isPetData = false,
+          this.isActive = true,
+          this.date = new Date().toString()
+          ).then( async auth => {
+            const alert = await this.alertController.create({
+              message: 'Usuario agregado exitosamente.',
+              buttons: ['OK']
+            });
+            await alert.present();
+          this.router.navigate(['/']);
+        }).catch(async err => {
+          console.log(err);
+          const alert = await this.alertController.create({
+            message: err,
+            buttons: ['OK']
+          });
+          await alert.present();
+        });
+      } else {
+        const alert = await this.alertController.create({
+          message: 'No ha aceptado los terminos y condiciones.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
     }
     
   }

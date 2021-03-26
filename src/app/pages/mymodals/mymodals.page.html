@@ -19,7 +19,7 @@
               <ion-col size-md="6">
                 <ion-card-title>Mascota: {{ todo.petName }}</ion-card-title>
                 <ion-card-subtitle *ngIf="todo.color === 'danger'">Modulo: Coupet</ion-card-subtitle>
-                <ion-card-subtitle *ngIf="todo.color === 'secondary'">Modulo: Adopción</ion-card-subtitle>
+                <ion-card-subtitle *ngIf="todo.color === 'success'">Modulo: Adopción</ion-card-subtitle>
                 <ion-card-subtitle *ngIf="todo.color === 'primary'">Modulo: Mascotas perdidas</ion-card-subtitle>
               </ion-col>
               <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo.isActive" (ionChange)="change(todo.isActive, todo.id)"></ion-toggle> </ion-col>
@@ -57,7 +57,7 @@
               <ion-col size-md="6">
                 <ion-card-title>Mascota: {{ todo2.petName }}</ion-card-title>
                 <ion-card-subtitle *ngIf="todo2.color === 'danger'">Modulo: Coupet</ion-card-subtitle>
-                <ion-card-subtitle *ngIf="todo2.color === 'secondary'">Modulo: Adopción</ion-card-subtitle>
+                <ion-card-subtitle *ngIf="todo2.color === 'success'">Modulo: Adopción</ion-card-subtitle>
                 <ion-card-subtitle *ngIf="todo2.color === 'primary'">Modulo: Mascotas perdidas</ion-card-subtitle>
               </ion-col>
               <ion-col size-md="6" class="ion-text-right"> <ion-toggle color="light" [(ngModel)]="todo2.isActive" (ionChange)="change(todo2.isActive, todo2.id)"></ion-toggle> </ion-col>

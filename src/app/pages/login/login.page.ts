@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
     private alertController: AlertController,
     private authservice: AuthService,
     public router: Router,
+    private platform: Platform,
   ) {
     this.validatorsForms();
   }
@@ -29,10 +30,17 @@ export class LoginPage implements OnInit {
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        email: [''],
+        password: ['']
+      });
+    } else{
+      this.directionForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+      });
+    }
   }
 
   onSubmitLogin() {

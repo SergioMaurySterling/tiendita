@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 import { TerminosPage } from '../terminos/terminos.page';
 
 declare var google;
@@ -50,6 +50,7 @@ export class RegisterempPage implements OnInit {
     public router: Router,
     public modalCtrl: ModalController,
     private zone: NgZone,
+    private platform: Platform,
   ) {
     this.validatorsForms();
 
@@ -65,81 +66,165 @@ export class RegisterempPage implements OnInit {
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
-      nit: ['', Validators.required],
-      phone: ['', Validators.required],
-      autocomplete: ['', Validators.required],
-      direction: ['', Validators.required],
-      terminos: [''],
-      delivery: [''],
-      description: [''],
-      horario: [''],
-      website: [''],
-    });
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        email: [''],
+        password: [''],
+        name: [''],
+        lastname: [''],
+        nit: [''],
+        phone: [''],
+        autocomplete: [''],
+        direction: [''],
+        terminos: [''],
+        delivery: [''],
+        description: [''],
+        horario: [''],
+        website: [''],
+      });
+    } else{
+      this.directionForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required],
+        name: ['', Validators.required],
+        lastname: ['', Validators.required],
+        nit: ['', Validators.required],
+        phone: ['', Validators.required],
+        autocomplete: ['', Validators.required],
+        direction: ['', Validators.required],
+        terminos: [''],
+        delivery: [''],
+        description: [''],
+        horario: [''],
+        website: [''],
+      });
+    }
+    
   }
 
   async onSubmitRegister() {
 
-    if (this.terminos === true) {
-      if (this.delivery === undefined){
-        this.delivery = null;
-      }
-      if (this.description === undefined){
-        this.description = '';
-      }
-      if (this.horario === undefined){
-        this.horario = '';
-      }
-      if (this.website === undefined){
-        this.website = '';
-      }
-      this.auth.registerEmp(
-        this.imageUrl,
-        this.email,
-        this.password,
-        this.name,
-        this.lastname,
-        this.nit,
-        this.phone,
-        this.geo,
-        this.latitude,
-        this.longitude,
-        this.direction,
-        this.delivery,
-        this.description,
-        this.horario,
-        this.website,
-        this.rol = 'emp',
-        this.isActive = false,
-        this.rate = 5,
-        this.date = new Date().toString()
-        ).then( async auth => {
-          const alert = await this.alertController.create({
-            message: 'Datos almacenados correctamente.',
-            buttons: ['OK']
-          });
-          await alert.present();
-        this.router.navigate(['/']);
-      }).catch(async err => {
-        console.log(err);
-        const alert = await this.alertController.create({
-          message: err,
-          buttons: ['OK']
-        });
-        await alert.present();
-      });
-    } else{
+    if (this.email === undefined || this.email === null) {
       const alert = await this.alertController.create({
-        message: 'No ha aceptado los terminos y condiciones.',
+        mode: 'ios',
+        message: 'Agregue un email',
         buttons: ['OK']
       });
       await alert.present();
-    }
 
+    } else if (this.password === undefined || this.password === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una contraseña',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.name === undefined || this.name === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el nombre',
+        buttons: ['OK']
+      });
+      await alert.present();
+      
+    } else if (this.lastname === undefined || this.lastname){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue al menos un apellido',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.nit === undefined || this.nit){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el nit',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.phone === undefined || this.phone === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue un telefono',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.autocomplete === undefined || this.autocomplete === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue los datos en mapas',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.direction === undefined || this.direction === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una dirección',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else {
+      if (this.terminos === true) {
+        if (this.delivery === undefined){
+          this.delivery = null;
+        }
+        if (this.description === undefined){
+          this.description = '';
+        }
+        if (this.horario === undefined){
+          this.horario = '';
+        }
+        if (this.website === undefined){
+          this.website = '';
+        }
+        this.auth.registerEmp(
+          this.imageUrl,
+          this.email,
+          this.password,
+          this.name,
+          this.lastname,
+          this.nit,
+          this.phone,
+          this.geo,
+          this.latitude,
+          this.longitude,
+          this.direction,
+          this.delivery,
+          this.description,
+          this.horario,
+          this.website,
+          this.rol = 'emp',
+          this.isActive = false,
+          this.rate = 5,
+          this.date = new Date().toString()
+          ).then( async auth => {
+            const alert = await this.alertController.create({
+              message: 'Datos almacenados correctamente.',
+              buttons: ['OK']
+            });
+            await alert.present();
+          this.router.navigate(['/']);
+        }).catch(async err => {
+          console.log(err);
+          const alert = await this.alertController.create({
+            message: err,
+            buttons: ['OK']
+          });
+          await alert.present();
+        });
+      } else{
+        const alert = await this.alertController.create({
+          message: 'No ha aceptado los terminos y condiciones.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    }
   }
 
   chooseItem(item: any) {

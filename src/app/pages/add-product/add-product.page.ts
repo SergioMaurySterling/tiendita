@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, Platform } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
@@ -67,7 +67,8 @@ export class AddProductPage implements OnInit {
     private productCatService: ProductCatService,
     private imagesService: ImagesService,
     private alertController: AlertController,
-    private database: AngularFirestore
+    private database: AngularFirestore,
+    private platform: Platform,
   ) {
     this.validatorsForms();
 
@@ -132,22 +133,70 @@ export class AddProductPage implements OnInit {
   }
 
   validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      price: ['', Validators.required],
-      delprice: [''],
-      ProdcutCatId: ['', Validators.required],
-      description: ['', Validators.required],
-    });
+
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        name: [''],
+        price: [''],
+        delprice: [''],
+        ProdcutCatId: [''],
+        description: [''],
+      });
+    } else {
+      this.directionForm = this.formBuilder.group({
+        name: ['', Validators.required],
+        price: ['', Validators.required],
+        delprice: [''],
+        ProdcutCatId: ['', Validators.required],
+        description: ['', Validators.required],
+      });
+
+    }
   }
 
   async SelectCat(){
-    this.productCatService.getTodo(this.ProdcutCatId).subscribe(res => {
-      this.pCatId = res;
-      this.pCatName = this.pCatId.name;
 
-      this.saveTodo(this.pCatName);
-    });
+    if (this.name === undefined || this.name === null) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue un nombre',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.price === undefined || this.price === null) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue el precio',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.ProdcutCatId === undefined || this.ProdcutCatId === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Seleccione una categoria',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else if (this.description === undefined || this.description === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue una descripción',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    } else {
+      this.productCatService.getTodo(this.ProdcutCatId).subscribe(res => {
+        this.pCatId = res;
+        this.pCatName = this.pCatId.name;
+  
+        this.saveTodo(this.pCatName);
+      });
+    }
+    
   }
 
   async saveTodo(pcatname) {
@@ -200,6 +249,7 @@ export class AddProductPage implements OnInit {
       });
 
       const alert = await this.alertController.create({
+        mode: 'ios',
         message: 'Datos almacenados correctamente.',
         buttons: ['OK']
       });
@@ -209,6 +259,7 @@ export class AddProductPage implements OnInit {
       {
         console.log(err);
         const alert = await this.alertController.create({
+          mode: 'ios',
           message: 'Error al almacenar los datos.',
           buttons: ['OK']
         });

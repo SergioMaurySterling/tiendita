@@ -86,11 +86,18 @@ export class CartmodalPage implements OnInit {
 
   hide = false;
 
-  validatorsForms() {
-    this.directionForm = this.formBuilder.group({
-      autocomplete: ['', Validators.required],
-      direction: ['', Validators.required],
-    });
+  async validatorsForms() {
+    if (this.platform.is('ios')) {
+      this.directionForm = this.formBuilder.group({
+        autocomplete: [''],
+        direction: [''],
+      });
+    } else{
+      this.directionForm = this.formBuilder.group({
+        autocomplete: ['', Validators.required],
+        direction: ['', Validators.required],
+      });
+    }
   }
 
   async ngOnInit() {
@@ -479,20 +486,40 @@ export class CartmodalPage implements OnInit {
     this.autocomplete.input = '';
   }
 
-  changeDir(){
-    if (this.dirAct === this.direction) {
-      this.direction = this.autocomplete.query
+  async changeDir(){
+
+    if (this.autocomplete === undefined || this.autocomplete === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue la direccion en places',
+        buttons: ['OK']
+      });
+      await alert.present();
+      
+    } else if (this.direction === undefined || this.direction === null){
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        message: 'Agregue la direccion en places',
+        buttons: ['OK']
+      });
+      await alert.present();
+      
+    } else {
+      if (this.dirAct === this.direction) {
+        this.direction = this.autocomplete.query
+      }
+      this.Emplat = this.latitude;
+      this.Emplng = this.longitude;
+      this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
+      if(this.empDelivery > 0 && this.empDelivery < 5000){
+        this.empDelivery = 5000;
+      } else{
+        this.empDelivery;
+      }
+      console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng + ' ' + this.direction);
+      this.hide = false;
     }
-    this.Emplat = this.latitude;
-    this.Emplng = this.longitude;
-    this.empDelivery = Math.ceil(this.emp.delivery * this.haversine_distance()/1000)*1000;
-    if(this.empDelivery > 0 && this.empDelivery < 5000){
-      this.empDelivery = 5000;
-    } else{
-      this.empDelivery;
-    }
-    console.log('Ubicación Aliado : ' + this.Emplat + ' ' + this.Emplng + ' ' + this.direction);
-    this.hide = false;
+    
   }
 
   dir(){

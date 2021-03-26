@@ -31,7 +31,7 @@ export class RecoverPasswordPage implements OnInit {
 
   validatorsForms() {
     this.directionForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: [''],
     });
   }
 
@@ -59,10 +59,16 @@ export class RecoverPasswordPage implements OnInit {
     
           this.router.navigate(['/login']);
         } catch (error) {
-          console.log(error);
+          const alert = await this.alertController.create({
+            mode:'ios',
+            message: error,
+            buttons: ['OK']
+          });
+          await alert.present();
         }
       } else{
         const alert = await this.alertController.create({
+          mode:'ios',
           message: 'El usuario no existe.',
           buttons: ['OK']
         });
