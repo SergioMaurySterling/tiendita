@@ -36,7 +36,7 @@ export class PetdataPage implements OnInit {
     private alertController: AlertController,
     public router: Router,
     private userService: UsersService,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
   }

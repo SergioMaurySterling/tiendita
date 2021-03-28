@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
     private alertController: AlertController,
     private authservice: AuthService,
     public router: Router,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
   }

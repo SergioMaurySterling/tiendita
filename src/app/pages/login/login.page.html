@@ -23,9 +23,15 @@
             </ion-item>
             
             <br>
-            <ion-button mode="ios" expand="block" [disabled]="!directionForm.valid" (click)="onSubmitLogin()">
+
+            <ion-button mode="ios" *ngIf="platform.is('ios')" expand="block" (click)="onSubmitLogin()">
                 <b>Iniciar sesión</b>
             </ion-button>
+
+            <ion-button mode="ios" *ngIf="!platform.is('ios')" expand="block" [disabled]="!directionForm.valid" (click)="onSubmitLogin()">
+                <b>Iniciar sesión</b>
+            </ion-button>
+
             <div class="ion-text-center pt-2">
                 <ion-label>¿No posee un usuario? <a routerLink="/register" style="color: var(--ion-color-dark)"><b>Registrate como usuario, </b></a> ¿Deseas ser nuestro aliado? <a routerLink="/registeremp" style="color: var(--ion-color-dark)"><b>Registrate como aliado</b></a></ion-label>
             </div>

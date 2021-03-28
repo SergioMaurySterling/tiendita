@@ -50,7 +50,7 @@ export class RegisterempPage implements OnInit {
     public router: Router,
     public modalCtrl: ModalController,
     private zone: NgZone,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
 
@@ -128,7 +128,7 @@ export class RegisterempPage implements OnInit {
       });
       await alert.present();
       
-    } else if (this.lastname === undefined || this.lastname){
+    } else if (this.lastname === undefined || this.lastname === null){
       const alert = await this.alertController.create({
         mode: 'ios',
         message: 'Agregue al menos un apellido',
@@ -136,7 +136,7 @@ export class RegisterempPage implements OnInit {
       });
       await alert.present();
 
-    } else if (this.nit === undefined || this.nit){
+    } else if (this.nit === undefined || this.nit === null){
       const alert = await this.alertController.create({
         mode: 'ios',
         message: 'Agregue el nit',

@@ -46,7 +46,7 @@ export class RegisterPage implements OnInit {
     public router: Router,
     public modalCtrl: ModalController,
     private zone: NgZone,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
 
@@ -112,7 +112,7 @@ export class RegisterPage implements OnInit {
       });
       await alert.present();
       
-    } else if (this.lastname === undefined || this.lastname){
+    } else if (this.lastname === undefined || this.lastname === null){
       const alert = await this.alertController.create({
         mode: 'ios',
         message: 'Agregue al menos un apellido',

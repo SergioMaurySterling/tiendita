@@ -49,7 +49,11 @@
         
         <br>
 
-        <ion-button mode="ios" color="primary" expand="block" [disabled]="!directionForm.valid" (click)="CatName()">
+        <ion-button mode="ios" *ngIf="platform.is('ios')" color="primary" expand="block" (click)="CatName()">
+          <b>Registrar</b>
+        </ion-button>
+
+        <ion-button mode="ios" *ngIf="!platform.is('ios')" color="primary" expand="block" [disabled]="!directionForm.valid" (click)="CatName()">
           <b>Registrar</b>
         </ion-button>
 

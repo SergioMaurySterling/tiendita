@@ -40,7 +40,7 @@ export class AddmodalPage implements OnInit {
     private userService: UsersService,
     private loadingController: LoadingController,
     private storage: AngularFireStorage,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
   }

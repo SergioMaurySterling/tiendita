@@ -68,7 +68,11 @@
                 <ion-label mode="md" class="ter" (click)="terminosClick()"><b style="color: var(--ion-color-primary);"> Términos y condiciones</b></ion-label>
             </div>
             
-            <ion-button mode="ios" color="primary" expand="block" [disabled]="!directionForm.valid" (click)="onSubmitRegister()">
+            <ion-button mode="ios" *ngIf="platform.is('ios')" color="primary" expand="block" (click)="onSubmitRegister()">
+                <b>Registrar</b>
+            </ion-button>
+
+            <ion-button mode="ios" *ngIf="!platform.is('ios')" color="primary" expand="block" [disabled]="!directionForm.valid" (click)="onSubmitRegister()">
                 <b>Registrar</b>
             </ion-button>
 

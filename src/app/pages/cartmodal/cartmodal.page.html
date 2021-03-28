@@ -104,9 +104,15 @@
         </ion-item>
         <ion-item *ngIf="hide === true">
           <ion-col size="6">
-            <ion-button mode="ios" [disabled]="!directionForm.valid" color="primary" expand="block" (click)="changeDir()">
+
+            <ion-button mode="ios" *ngIf="platform.is('ios')" color="primary" expand="block" (click)="changeDir()">
               <b>Cambiar</b>
             </ion-button>
+
+            <ion-button mode="ios" *ngIf="!platform.is('ios')" [disabled]="!directionForm.valid" color="primary" expand="block" (click)="changeDir()">
+              <b>Cambiar</b>
+            </ion-button>
+
           </ion-col>
           <ion-col size="6">
             <ion-button mode="ios" color="danger" expand="block" (click)="cancelDir()">

@@ -28,9 +28,15 @@
             </ion-select>
           </ion-item>
         </ion-label>
-        <ion-button [disabled]="!directionForm.valid" mode="ios" expand="block" shape="round" (click)="checkout(todo.price, todo.emisorUid, todo.product, todo.uid, todo.cupos, todo.catId)">
+
+        <ion-button *ngIf="platform.is('ios')" mode="ios" expand="block" shape="round" (click)="checkout(todo.price, todo.emisorUid, todo.product, todo.uid, todo.cupos, todo.catId)">
           Ir a pagar
         </ion-button>
+
+        <ion-button *ngIf="!platform.is('ios')" [disabled]="!directionForm.valid" mode="ios" expand="block" shape="round" (click)="checkout(todo.price, todo.emisorUid, todo.product, todo.uid, todo.cupos, todo.catId)">
+          Ir a pagar
+        </ion-button>
+
       </form>
     </ion-col>
   </ion-row>

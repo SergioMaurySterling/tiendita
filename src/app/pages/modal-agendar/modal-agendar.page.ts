@@ -42,7 +42,7 @@ export class ModalAgendarPage implements OnInit {
     public router: Router,
     public af: AngularFireAuth,
     private userService: UsersService,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
   }

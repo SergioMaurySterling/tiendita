@@ -68,7 +68,7 @@ export class AddProductPage implements OnInit {
     private imagesService: ImagesService,
     private alertController: AlertController,
     private database: AngularFirestore,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
 

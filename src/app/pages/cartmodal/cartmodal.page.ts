@@ -46,7 +46,7 @@ export class CartmodalPage implements OnInit {
   static cart: Product[] = [];
 
   constructor(
-    private platform: Platform,
+    public platform: Platform,
     private modalCtrl: ModalController,
     private payService: PayService,
     public userService: UsersService,
@@ -86,7 +86,7 @@ export class CartmodalPage implements OnInit {
 
   hide = false;
 
-  async validatorsForms() {
+  validatorsForms() {
     if (this.platform.is('ios')) {
       this.directionForm = this.formBuilder.group({
         autocomplete: [''],

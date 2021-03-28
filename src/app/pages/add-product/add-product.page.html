@@ -108,7 +108,11 @@
         
         <br>
 
-        <ion-button mode="ios" color="primary" expand="block" [disabled]="!directionForm.valid" (click)="SelectCat()">
+        <ion-button mode="ios" *ngIf="platform.is('ios')" color="primary" expand="block" (click)="SelectCat()">
+          <b>Agregar</b>
+        </ion-button>
+
+        <ion-button mode="ios" *ngIf="!platform.is('ios')" color="primary" expand="block" [disabled]="!directionForm.valid" (click)="SelectCat()">
           <b>Agregar</b>
         </ion-button>
 

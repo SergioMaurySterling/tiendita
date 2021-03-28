@@ -41,7 +41,7 @@ export class AddVetPage implements OnInit {
     private categoryService: VetCatService,
     private loadingController: LoadingController,
     private storage: AngularFireStorage,
-    private platform: Platform,
+    public platform: Platform,
   ) {
     this.validatorsForms();
   }
