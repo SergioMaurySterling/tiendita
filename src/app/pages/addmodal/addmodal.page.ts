@@ -112,6 +112,18 @@ export class AddmodalPage implements OnInit {
 
   async saveTodo() {
 
+    if (!this.platform.is('ios')) {
+      if(this.imageUrl === undefined || this.imageUrl === null) {
+        const alert = await this.alertController.create({
+          mode: 'ios',
+          message: 'Agregue una imagen',
+          buttons: ['OK']
+        });
+        await alert.present();
+  
+      }
+    }
+
     if (this.petName === undefined || this.petName === null) {
       const alert = await this.alertController.create({
         mode: 'ios',
@@ -153,13 +165,6 @@ export class AddmodalPage implements OnInit {
       });
       await alert.present();
 
-    } else if (this.imageUrl === undefined || this.imageUrl === null){
-      const alert = await this.alertController.create({
-        mode: 'ios',
-        message: 'Agregue la imagen',
-        buttons: ['OK']
-      });
-      await alert.present();
     } else{
       if (this.nombre === 'Perdidos') {
         this.st = this.situation;

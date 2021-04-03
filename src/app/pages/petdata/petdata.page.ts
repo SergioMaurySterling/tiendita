@@ -83,15 +83,19 @@ export class PetdataPage implements OnInit {
 
   async saveTodo(){
 
-    if (this.petImage === undefined || this.petImage === null) {
-      const alert = await this.alertController.create({
-        mode: 'ios',
-        message: 'Agregue una Imagen',
-        buttons: ['OK']
-      });
-      await alert.present();
-
-    } else if (this.petName === undefined || this.petName === null){
+    if (!this.platform.is('ios')) {
+      if(this.petImage === undefined || this.petImage === null) {
+        const alert = await this.alertController.create({
+          mode: 'ios',
+          message: 'Agregue una imagen',
+          buttons: ['OK']
+        });
+        await alert.present();
+  
+      }
+    } 
+    
+    if (this.petName === undefined || this.petName === null){
       const alert = await this.alertController.create({
         mode: 'ios',
         message: 'Agregue un nombre',

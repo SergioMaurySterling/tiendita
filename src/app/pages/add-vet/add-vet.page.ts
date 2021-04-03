@@ -113,15 +113,20 @@ export class AddVetPage implements OnInit {
   }
 
   async CatName(){
-    if(this.imageUrl === undefined || this.imageUrl === null) {
-      const alert = await this.alertController.create({
-        mode: 'ios',
-        message: 'Agregue una imagen',
-        buttons: ['OK']
-      });
-      await alert.present();
 
-    } else if(this.namevet === undefined || this.namevet === null){
+    if (!this.platform.is('ios')) {
+      if(this.imageUrl === undefined || this.imageUrl === null) {
+        const alert = await this.alertController.create({
+          mode: 'ios',
+          message: 'Agregue una imagen',
+          buttons: ['OK']
+        });
+        await alert.present();
+  
+      }
+    } 
+    
+    if(this.namevet === undefined || this.namevet === null){
       const alert = await this.alertController.create({
         mode: 'ios',
         message: 'Agregue una imagen',
