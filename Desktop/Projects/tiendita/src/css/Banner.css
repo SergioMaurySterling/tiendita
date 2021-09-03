@@ -1,0 +1,38 @@
+.banner-container{
+    height: 180px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    background-image: url(../images/banner.jpg);
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .banner-photo{
+    position: absolute;
+    height: 180px;
+    object-fit: fit;
+    border-radius: 15px;
+} */
+
+.text-container{
+    backdrop-filter: grayscale(50%);
+    height: 185px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-text{
+    position: relative;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 35px;
+}

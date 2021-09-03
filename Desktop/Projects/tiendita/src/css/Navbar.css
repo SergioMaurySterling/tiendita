@@ -1,0 +1,26 @@
+.navbar.navbar-light.bg-light{
+    height: 70px;
+    padding-right: 10px;
+    align-items: center;
+}
+
+.container-fluid p{
+    color:rgb(228, 80, 80);
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.btn.btn-primary.position-relative{
+    background-color: rgb(112, 211, 112);
+    border: none;
+}
+
+.location-icon{
+    color: rgb(228, 80, 80);
+    height: 30px;
+}
+
+.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger{
+    background-color: rgb(228, 80, 80);
+}

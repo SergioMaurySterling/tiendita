@@ -1,0 +1,66 @@
+.product-container{
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+}
+
+.badge.rounded-pill.bg-danger{
+    margin-left: 7.5px;
+    background-color: rgb(196, 154, 226) !important;
+    color: indigo;
+}
+
+.false-disscount{
+    background-color: white;
+    color: white;
+}
+
+.product-image{
+    width: 180px;
+    height: 180px;
+    border-radius: 15px;
+    margin-left: 7.5px;
+}
+
+.no-disscount{
+    margin: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    text-decoration:line-through;
+}
+
+.products-prices-container{
+    display: flex;
+    margin-left: 7.5px;
+}
+
+.product-price{
+    margin: 0px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.product-price-disscount{
+    margin: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgba(143, 138, 138, 0.801);
+    text-decoration:line-through;
+}
+
+.product-name{
+    margin: 0px;
+    font-size: 13px;
+    margin-left: 7.5px;
+}
+
+.btn.btn-success{
+    background-color: rgb(112, 211, 112);
+    border: none;
+    font-weight: bold;
+    width: 180px;
+    margin-top: 12px;
+    border-radius: 8px;
+    margin-left: 7.5px;
+}

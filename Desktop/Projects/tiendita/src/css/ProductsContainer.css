@@ -1,0 +1,20 @@
+.products-container{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    background-color: white;
+    padding:20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-title{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.product-carrousel{
+    display: flex;
+    flex-wrap: wrap;
+}
